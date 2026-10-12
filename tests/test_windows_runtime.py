@@ -80,7 +80,8 @@ def test_builder_wrong_confirmation_word_moves_nothing(tmp_path):
     code, output = run(powershell('build-one-folder-windows.ps1', '-ExportPath', str(export),
                                   '-BundlePath', str(tmp_path / 'ready')), 'en', tmp_path, stdin='nope\n')
     assert code == 1, output
-    assert 'To confirm, type MOVE' in output and 'Cancelled' in output, output
+    # Windows PowerShell does not echo the Read-Host prompt when stdin is redirected.
+    assert 'will be MOVED' in output and 'Cancelled: the source data was not touched' in output, output
     assert (export / 'result.json').is_file() and not (tmp_path / 'ready').exists()
 
 
