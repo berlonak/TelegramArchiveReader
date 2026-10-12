@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+
+.venv/
+venv/
+env/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.env
+.env.*
+!.env.example
+
+*.log
+
+# Local archive data (personal Telegram history, never commit)
+archive-data/
+TelegramArchive-ready/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+bundle-manifest.json
+*.tar
+
+# Microsoft Sysinternals Handle is downloaded on demand by CHECK-LOCK-WINDOWS.ps1
+tools/

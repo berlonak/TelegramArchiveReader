@@ -1,0 +1,29 @@
+# copyright by berlonak
+# telegram: @Kilax123
+[Unit]
+Description=Telegram Archive (private read-only web application)
+After=network.target
+
+[Service]
+Type=simple
+User=tgarchive
+Group=tgarchive
+WorkingDirectory=/opt/telegram-archive
+Environment=TGARCHIVE_DATA_DIR=/srv/tgarchive/data
+Environment=TGARCHIVE_HTTPS=1
+# nginx passes X-Real-IP; needed so login rate limiting is per client, not per proxy.
+Environment=TGARCHIVE_TRUST_PROXY=1
+ExecStart=/opt/telegram-archive/.venv/bin/tgarchive serve --port 8000
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/tgarchive/data
+ReadOnlyPaths=/srv/tgarchive/exports
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

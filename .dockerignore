@@ -1,0 +1,11 @@
+**/__pycache__/
+**/.venv/
+**/*.pyc
+*.zip
+*.tar
+*.sqlite3*
+archive-data/
+examples/
+docs/
+tests/
+.git/

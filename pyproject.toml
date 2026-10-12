@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telegram-personal-archive"
+version = "0.3.4"
+description = "Private, read-only Telegram Desktop JSON export viewer"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "berlonak" }]
+requires-python = ">=3.10"
+keywords = ["telegram", "telegram-export", "chat-archive", "viewer", "full-text-search", "sqlite", "fastapi", "self-hosted"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Web Environment",
+  "Framework :: FastAPI",
+  "Intended Audience :: End Users/Desktop",
+  "Natural Language :: Russian",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Communications :: Chat",
+  "Topic :: System :: Archiving",
+]
+dependencies = [
+  "fastapi>=0.110,<1",
+  "uvicorn[standard]>=0.27,<1",
+  "argon2-cffi>=23.1,<26",
+  "ijson>=3.2,<4",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "httpx>=0.27"]
+
+[project.urls]
+Homepage = "https://github.com/berlonak/TelegramArchiveReader"
+Issues = "https://github.com/berlonak/TelegramArchiveReader/issues"
+Changelog = "https://github.com/berlonak/TelegramArchiveReader/blob/main/CHANGELOG.md"
+
+[project.scripts]
+tgarchive = "tgarchive.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["tgarchive*"]
+
+[tool.setuptools.package-data]
+tgarchive = ["static/*"]

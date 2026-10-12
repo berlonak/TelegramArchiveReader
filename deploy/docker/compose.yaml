@@ -1,0 +1,30 @@
+# copyright by berlonak
+# telegram: @Kilax123
+# Put this file next to a 'TelegramArchive-ready' directory on the Linux server.
+# Only localhost can connect. Add host nginx + TLS before internet access.
+services:
+  archive:
+    build:
+      context: ./TelegramArchive-ready/app
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=64m
+    environment:
+      TGARCHIVE_DATA_DIR: /bundle/data
+      TGARCHIVE_BUNDLE_ROOT: /bundle
+      TGARCHIVE_HTTPS: '1'
+      TGARCHIVE_TRUST_PROXY: '1'
+      # Set the actual Docker bridge gateway CIDR for THIS deployment, not any public range.
+      TGARCHIVE_TRUSTED_PROXY_CIDRS: '${TGARCHIVE_TRUSTED_PROXY_CIDRS:-127.0.0.1/8,::1/128}'
+    ports:
+      - '127.0.0.1:8000:8000'
+    volumes:
+      - ./TelegramArchive-ready:/bundle:ro
+      - ./TelegramArchive-ready/data:/bundle/data:rw

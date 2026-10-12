@@ -1,0 +1,8 @@
+# copyright by berlonak
+# telegram: @Kilax123
+[Unit]
+Description=Renew Let's Encrypt certificate for Telegram Archive
+
+[Service]
+Type=oneshot
+ExecStart=/snap/bin/certbot renew --quiet

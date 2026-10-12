@@ -1,0 +1,869 @@
+{
+  "about": "Synthetic sample archive; no real private data.",
+  "personal_information": {
+    "user_id": 101,
+    "first_name": "Иван"
+  },
+  "chats": {
+    "list": [
+      {
+        "name": "Мария",
+        "type": "personal_chat",
+        "id": 222,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-10T10:12:00+00:00",
+            "date_unixtime": "1618049520",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Привет! Помнишь нашу поездку?"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-10T10:24:00+00:00",
+            "date_unixtime": "1618050240",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Конечно! Я нашёл те самые фотографии 📷"
+          },
+          {
+            "id": 3,
+            "type": "message",
+            "date": "2021-04-10T10:36:00+00:00",
+            "date_unixtime": "1618050960",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "",
+            "photo": "chats/chat1/photos/photo_1.jpg",
+            "width": 800,
+            "height": 450
+          },
+          {
+            "id": 4,
+            "type": "message",
+            "date": "2021-04-10T10:48:00+00:00",
+            "date_unixtime": "1618051680",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": [
+              {
+                "type": "plain",
+                "text": "Вот ссылка на "
+              },
+              {
+                "type": "text_link",
+                "text": "маршрут",
+                "href": "https://example.org/trip"
+              }
+            ],
+            "reply_to_message_id": 2
+          },
+          {
+            "id": 5,
+            "type": "message",
+            "date": "2021-05-16T11:00:00+00:00",
+            "date_unixtime": "1621162800",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Поездку обязательно повторим следующим летом."
+          },
+          {
+            "id": 6,
+            "type": "message",
+            "date": "2022-02-04T11:12:00+00:00",
+            "date_unixtime": "1643973120",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Твой старый документ где-то у меня сохранён."
+          },
+          {
+            "id": 7,
+            "type": "message",
+            "date": "2022-02-04T11:24:00+00:00",
+            "date_unixtime": "1643973840",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл в сохранённых, спасибо!"
+          },
+          {
+            "id": 8,
+            "type": "message",
+            "date": "2022-02-06T11:36:00+00:00",
+            "date_unixtime": "1644147360",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 9,
+            "type": "message",
+            "date": "2022-02-06T11:48:00+00:00",
+            "date_unixtime": "1644148080",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 10,
+            "type": "message",
+            "date": "2022-02-06T12:00:00+00:00",
+            "date_unixtime": "1644148800",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 11,
+            "type": "message",
+            "date": "2022-02-06T12:12:00+00:00",
+            "date_unixtime": "1644149520",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 12,
+            "type": "message",
+            "date": "2022-02-07T12:24:00+00:00",
+            "date_unixtime": "1644236640",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 13,
+            "type": "message",
+            "date": "2022-02-07T12:36:00+00:00",
+            "date_unixtime": "1644237360",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 14,
+            "type": "message",
+            "date": "2022-02-07T12:48:00+00:00",
+            "date_unixtime": "1644238080",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 15,
+            "type": "message",
+            "date": "2022-02-07T13:00:00+00:00",
+            "date_unixtime": "1644238800",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 16,
+            "type": "message",
+            "date": "2022-02-08T13:12:00+00:00",
+            "date_unixtime": "1644325920",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 17,
+            "type": "message",
+            "date": "2022-02-08T13:24:00+00:00",
+            "date_unixtime": "1644326640",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 18,
+            "type": "message",
+            "date": "2022-02-08T13:36:00+00:00",
+            "date_unixtime": "1644327360",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 19,
+            "type": "message",
+            "date": "2022-02-08T13:48:00+00:00",
+            "date_unixtime": "1644328080",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 20,
+            "type": "message",
+            "date": "2022-02-09T14:00:00+00:00",
+            "date_unixtime": "1644415200",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 21,
+            "type": "message",
+            "date": "2022-02-09T14:12:00+00:00",
+            "date_unixtime": "1644415920",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 22,
+            "type": "message",
+            "date": "2022-02-09T14:24:00+00:00",
+            "date_unixtime": "1644416640",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 23,
+            "type": "message",
+            "date": "2022-02-09T14:36:00+00:00",
+            "date_unixtime": "1644417360",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 24,
+            "type": "message",
+            "date": "2022-02-10T14:48:00+00:00",
+            "date_unixtime": "1644504480",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 25,
+            "type": "message",
+            "date": "2022-02-10T15:00:00+00:00",
+            "date_unixtime": "1644505200",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 26,
+            "type": "message",
+            "date": "2022-02-10T15:12:00+00:00",
+            "date_unixtime": "1644505920",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 27,
+            "type": "message",
+            "date": "2022-02-10T15:24:00+00:00",
+            "date_unixtime": "1644506640",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 28,
+            "type": "message",
+            "date": "2022-02-11T15:36:00+00:00",
+            "date_unixtime": "1644593760",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 29,
+            "type": "message",
+            "date": "2022-02-11T15:48:00+00:00",
+            "date_unixtime": "1644594480",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 30,
+            "type": "message",
+            "date": "2022-02-11T16:00:00+00:00",
+            "date_unixtime": "1644595200",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 31,
+            "type": "message",
+            "date": "2022-02-11T16:12:00+00:00",
+            "date_unixtime": "1644595920",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 32,
+            "type": "message",
+            "date": "2022-02-12T16:24:00+00:00",
+            "date_unixtime": "1644683040",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 33,
+            "type": "message",
+            "date": "2022-02-12T16:36:00+00:00",
+            "date_unixtime": "1644683760",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 34,
+            "type": "message",
+            "date": "2022-02-12T16:48:00+00:00",
+            "date_unixtime": "1644684480",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 35,
+            "type": "message",
+            "date": "2022-02-12T17:00:00+00:00",
+            "date_unixtime": "1644685200",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 36,
+            "type": "message",
+            "date": "2022-02-13T17:12:00+00:00",
+            "date_unixtime": "1644772320",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 37,
+            "type": "message",
+            "date": "2022-02-13T17:24:00+00:00",
+            "date_unixtime": "1644773040",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 38,
+            "type": "message",
+            "date": "2022-02-13T17:36:00+00:00",
+            "date_unixtime": "1644773760",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 39,
+            "type": "message",
+            "date": "2022-02-13T17:48:00+00:00",
+            "date_unixtime": "1644774480",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 40,
+            "type": "message",
+            "date": "2022-02-14T18:00:00+00:00",
+            "date_unixtime": "1644861600",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 41,
+            "type": "message",
+            "date": "2022-02-14T18:12:00+00:00",
+            "date_unixtime": "1644862320",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 42,
+            "type": "message",
+            "date": "2022-02-14T18:24:00+00:00",
+            "date_unixtime": "1644863040",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 43,
+            "type": "message",
+            "date": "2022-02-14T18:36:00+00:00",
+            "date_unixtime": "1644863760",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 44,
+            "type": "message",
+            "date": "2022-02-15T18:48:00+00:00",
+            "date_unixtime": "1644950880",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 45,
+            "type": "message",
+            "date": "2022-02-15T19:00:00+00:00",
+            "date_unixtime": "1644951600",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 46,
+            "type": "message",
+            "date": "2022-02-15T19:12:00+00:00",
+            "date_unixtime": "1644952320",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 47,
+            "type": "message",
+            "date": "2022-02-15T19:24:00+00:00",
+            "date_unixtime": "1644953040",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 48,
+            "type": "message",
+            "date": "2022-02-16T19:36:00+00:00",
+            "date_unixtime": "1645040160",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 49,
+            "type": "message",
+            "date": "2022-02-16T19:48:00+00:00",
+            "date_unixtime": "1645040880",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 50,
+            "type": "message",
+            "date": "2022-02-16T20:00:00+00:00",
+            "date_unixtime": "1645041600",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 51,
+            "type": "message",
+            "date": "2022-02-16T20:12:00+00:00",
+            "date_unixtime": "1645042320",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 52,
+            "type": "message",
+            "date": "2022-02-17T20:24:00+00:00",
+            "date_unixtime": "1645129440",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 53,
+            "type": "message",
+            "date": "2022-02-17T20:36:00+00:00",
+            "date_unixtime": "1645130160",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 54,
+            "type": "message",
+            "date": "2022-02-17T20:48:00+00:00",
+            "date_unixtime": "1645130880",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 55,
+            "type": "message",
+            "date": "2022-02-17T21:00:00+00:00",
+            "date_unixtime": "1645131600",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 56,
+            "type": "message",
+            "date": "2022-02-18T21:12:00+00:00",
+            "date_unixtime": "1645218720",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 57,
+            "type": "message",
+            "date": "2022-02-18T21:24:00+00:00",
+            "date_unixtime": "1645219440",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 58,
+            "type": "message",
+            "date": "2022-02-18T21:36:00+00:00",
+            "date_unixtime": "1645220160",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 59,
+            "type": "message",
+            "date": "2022-02-18T21:48:00+00:00",
+            "date_unixtime": "1645220880",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 60,
+            "type": "message",
+            "date": "2022-02-19T22:00:00+00:00",
+            "date_unixtime": "1645308000",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 61,
+            "type": "message",
+            "date": "2022-02-19T22:12:00+00:00",
+            "date_unixtime": "1645308720",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 62,
+            "type": "message",
+            "date": "2022-02-19T22:24:00+00:00",
+            "date_unixtime": "1645309440",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 63,
+            "type": "message",
+            "date": "2022-02-19T22:36:00+00:00",
+            "date_unixtime": "1645310160",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 64,
+            "type": "message",
+            "date": "2022-02-20T22:48:00+00:00",
+            "date_unixtime": "1645397280",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 65,
+            "type": "message",
+            "date": "2022-02-20T23:00:00+00:00",
+            "date_unixtime": "1645398000",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 66,
+            "type": "message",
+            "date": "2022-02-20T23:12:00+00:00",
+            "date_unixtime": "1645398720",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 67,
+            "type": "message",
+            "date": "2022-02-20T23:24:00+00:00",
+            "date_unixtime": "1645399440",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 68,
+            "type": "message",
+            "date": "2022-02-21T23:36:00+00:00",
+            "date_unixtime": "1645486560",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 69,
+            "type": "message",
+            "date": "2022-02-21T23:48:00+00:00",
+            "date_unixtime": "1645487280",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 70,
+            "type": "message",
+            "date": "2022-02-22T00:00:00+00:00",
+            "date_unixtime": "1645488000",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 71,
+            "type": "message",
+            "date": "2022-02-22T00:12:00+00:00",
+            "date_unixtime": "1645488720",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 72,
+            "type": "message",
+            "date": "2022-02-23T00:24:00+00:00",
+            "date_unixtime": "1645575840",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 73,
+            "type": "message",
+            "date": "2022-02-23T00:36:00+00:00",
+            "date_unixtime": "1645576560",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          },
+          {
+            "id": 74,
+            "type": "message",
+            "date": "2022-02-23T00:48:00+00:00",
+            "date_unixtime": "1645577280",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Нашёл старую переписку"
+          },
+          {
+            "id": 75,
+            "type": "message",
+            "date": "2022-02-23T01:00:00+00:00",
+            "date_unixtime": "1645578000",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Посмотри фотографии за прошлый год"
+          },
+          {
+            "id": 76,
+            "type": "message",
+            "date": "2022-02-24T01:12:00+00:00",
+            "date_unixtime": "1645665120",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Давай созвонимся завтра"
+          },
+          {
+            "id": 77,
+            "type": "message",
+            "date": "2022-02-24T01:24:00+00:00",
+            "date_unixtime": "1645665840",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Это мой личный архив Telegram"
+          },
+          {
+            "id": 78,
+            "type": "message",
+            "date": "2022-02-24T01:36:00+00:00",
+            "date_unixtime": "1645666560",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Как дела?"
+          },
+          {
+            "id": 79,
+            "type": "message",
+            "date": "2022-02-24T01:48:00+00:00",
+            "date_unixtime": "1645667280",
+            "from": "Мария",
+            "from_id": "user222",
+            "text": "Помнишь эту встречу?"
+          }
+        ]
+      },
+      {
+        "name": "Наши выходные",
+        "type": "private_supergroup",
+        "id": 333,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-30T10:12:00+00:00",
+            "date_unixtime": "1619777520",
+            "from": "Елена",
+            "from_id": "user222",
+            "text": "Всем привет, планы на выходные?"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-30T10:24:00+00:00",
+            "date_unixtime": "1619778240",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Можно поехать к озеру!"
+          },
+          {
+            "id": 3,
+            "type": "message",
+            "date": "2021-04-30T10:36:00+00:00",
+            "date_unixtime": "1619778960",
+            "from": "Дмитрий",
+            "from_id": "user222",
+            "text": "Звучит отлично"
+          },
+          {
+            "id": 4,
+            "type": "message",
+            "date": "2021-05-01T10:48:00+00:00",
+            "date_unixtime": "1619866080",
+            "from": "Елена",
+            "from_id": "user222",
+            "text": "",
+            "photo": "chats/chat2/photos/photo_2.jpg",
+            "width": 800,
+            "height": 450
+          },
+          {
+            "id": 5,
+            "type": "message",
+            "date": "2021-05-02T11:00:00+00:00",
+            "date_unixtime": "1619953200",
+            "from": "Дмитрий",
+            "from_id": "user222",
+            "text": "Составил список покупок на выходные."
+          }
+        ]
+      },
+      {
+        "name": "Технологии сегодня",
+        "type": "public_channel",
+        "id": 444,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-13T10:12:00+00:00",
+            "date_unixtime": "1618308720",
+            "from": "Канал",
+            "from_id": "user222",
+            "text": "Подборка технологий: Новые приложения и проекты"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-16T10:24:00+00:00",
+            "date_unixtime": "1618568640",
+            "from": "Канал",
+            "from_id": "user222",
+            "text": "Подборка технологий: Лента важных обновлений"
+          },
+          {
+            "id": 3,
+            "type": "message",
+            "date": "2021-04-19T10:36:00+00:00",
+            "date_unixtime": "1618828560",
+            "from": "Канал",
+            "from_id": "user222",
+            "text": "Подборка технологий: Новости цифрового мира"
+          },
+          {
+            "id": 4,
+            "type": "message",
+            "date": "2021-04-22T10:48:00+00:00",
+            "date_unixtime": "1619088480",
+            "from": "Канал",
+            "from_id": "user222",
+            "text": "Подборка технологий: Советы по хранению данных"
+          }
+        ]
+      },
+      {
+        "name": "Избранное",
+        "type": "saved_messages",
+        "id": 101,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-10T10:12:00+00:00",
+            "date_unixtime": "1618049520",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "https://example.org/bookmark"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-13T10:24:00+00:00",
+            "date_unixtime": "1618309440",
+            "from": "Иван",
+            "from_id": "user101",
+            "text": "Полезный документ про историю проекта"
+          }
+        ]
+      }
+    ]
+  },
+  "left_chats": {
+    "list": []
+  }
+}
