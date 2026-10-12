@@ -3,7 +3,7 @@ rem copyright by berlonak
 rem telegram: @Kilax123
 setlocal
 cd /d "%~dp0"
-set /p "EXPORT_DIR=Path to Telegram export directory (result.json): "
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK-LOCK-WINDOWS.ps1" -ExportPath "%EXPORT_DIR%"
+rem The PowerShell script asks for the export folder itself (Unicode-safe input, Russian or English).
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK-LOCK-WINDOWS.ps1"
 echo.
 pause

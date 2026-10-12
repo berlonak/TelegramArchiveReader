@@ -15,6 +15,7 @@ from bundletool import file_inventory
 
 
 def test_combined_html_json_and_left_chats(tmp_path, monkeypatch):
+    monkeypatch.setenv("TGARCHIVE_LANG", "ru")
     monkeypatch.setenv("TGARCHIVE_DATA_DIR", str(tmp_path / "db"))
     source = tmp_path / "export"
     source.mkdir()
@@ -58,3 +59,20 @@ def test_combined_html_json_and_left_chats(tmp_path, monkeypatch):
     inventory = file_inventory(source)
     assert inventory["file_count"] == 4
     assert inventory["total_bytes"] > len((source / "result.json").read_bytes())
+
+
+def test_placeholders_follow_import_language(tmp_path, monkeypatch):
+    monkeypatch.setenv("TGARCHIVE_LANG", "en")
+    monkeypatch.setenv("TGARCHIVE_DATA_DIR", str(tmp_path / "db"))
+    source = tmp_path / "export"
+    source.mkdir()
+    obj = {"chats": {"list": [{"id": 1, "name": None, "type": "private_group", "messages": [
+        {"id": 1, "date_unixtime": "1690000000", "text": "", "poll": {"question": "Lunch?"}},
+        {"id": 2, "date_unixtime": "1690000001", "text": "", "location_information": {"latitude": 0}},
+    ]}]}}
+    (source / "result.json").write_text(json.dumps(obj), encoding="utf8")
+    import_export(source, progress=False)
+    with connect() as conn:
+        assert conn.execute("SELECT title FROM chats").fetchone()[0] == "Untitled"
+        bodies = [r[0] for r in conn.execute("SELECT body FROM messages ORDER BY tg_id")]
+        assert bodies == ["Poll: Lunch?", "Location"]

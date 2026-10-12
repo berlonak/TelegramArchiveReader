@@ -47,6 +47,7 @@ def test_preflight_password_before_moving_then_prepare_and_reset(tmp_path, monke
 
 
 def test_preflight_reuses_safe_stub_but_rejects_partially_imported_db(tmp_path, monkeypatch):
+    monkeypatch.setenv('TGARCHIVE_LANG', 'ru')
     bundle = tmp_path / 'ready'
     values = iter(('first-long-enough-2026', 'first-long-enough-2026',
                    'second-long-enough-2026', 'second-long-enough-2026'))

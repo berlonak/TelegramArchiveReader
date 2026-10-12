@@ -40,7 +40,9 @@ the importer streams the JSON one message at a time and media files are never co
 - **Bookmarks**, **contacts from the export**, and the **raw JSON** of any message (every
   export field is preserved, including ones the UI does not show).
 - **English and Russian interface** with a one-click switch (menu or sign-in page). The
-  language follows the browser by default and the choice is remembered.
+  language follows the browser by default and the choice is remembered. The CLI, the Windows
+  builder and the server scripts also speak English and Russian (system language, or
+  `TGARCHIVE_LANG`).
 - Dark and light themes, mobile layout, `Ctrl/⌘ + K` for search.
 - **Portable bundle**: index once on Windows, then copy the ready folder to a Linux VPS
   without re-indexing. Includes integrity checks (SHA-256 of `result.json`, file count and
@@ -120,7 +122,7 @@ without re-importing. `CHECK-LOCK.bat` shows which processes hold files open whe
 refuses to move the folder (it uses Microsoft Sysinternals Handle, downloaded only with your
 consent and checked for Microsoft's signature).
 
-Detailed guide (Russian): [WINDOWS-RU.md](WINDOWS-RU.md).
+Detailed guide: [WINDOWS.md](WINDOWS.md) (Russian: [WINDOWS-RU.md](WINDOWS-RU.md)).
 
 ## Server deployment (Ubuntu/Debian, no Docker)
 
@@ -137,7 +139,7 @@ Let's Encrypt **IP-address certificate** (Certbot 5.4+, short-lived profile, ren
 No domain name is required. The script is designed for a clean server; review it first if
 nginx already serves other sites.
 
-Detailed guide (Russian): [SERVER-RU.md](SERVER-RU.md). An optional Docker Compose template
+Detailed guide: [SERVER.md](SERVER.md) (Russian: [SERVER-RU.md](SERVER-RU.md)). An optional Docker Compose template
 lives in [`deploy/docker/compose.yaml`](deploy/docker/compose.yaml); it keeps your data
 outside the image.
 
@@ -150,6 +152,7 @@ outside the image.
 | `TGARCHIVE_TRUST_PROXY` | unset | `1` to take the client IP from `X-Real-IP` sent by a trusted proxy |
 | `TGARCHIVE_TRUSTED_PROXY_CIDRS` | `127.0.0.1/8,::1/128` | Proxy addresses whose `X-Real-IP` is trusted |
 | `TGARCHIVE_BUNDLE_ROOT` | unset | Root of a portable bundle; set automatically by `start-local.py` |
+| `TGARCHIVE_LANG` | system language | `ru` or `en` for CLI, builder and server script messages (the web UI has its own switch) |
 
 ## Limitations
 

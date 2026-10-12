@@ -21,12 +21,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+try:
+    from tgarchive.messages import msg
+except ImportError:  # inside a ready bundle the package lives in app/
+    sys.path.insert(0, str(ROOT / "app"))
+    from tgarchive.messages import msg
 TOKEN = "@TGARCHIVE_BUNDLE@/"
 VERSION = 1
 
 
 def fail(message: str) -> None:
-    raise SystemExit("Ошибка: " + message)
+    raise SystemExit(msg("error", message=message))
 
 
 def canonical(path: str | Path) -> Path:
@@ -57,11 +62,11 @@ def file_inventory(root: Path) -> dict[str, int]:
         where = Path(base)
         for name in dirs:
             if (where / name).is_symlink():
-                fail(f"В экспорте символическая ссылка на папку: {where / name}")
+                fail(msg("bt.symlink_dir", path=where / name))
         for name in files:
             path = where / name
             if path.is_symlink() or not path.is_file():
-                fail(f"В экспорте ссылка или нестандартный файл: {path}")
+                fail(msg("bt.special_file", path=path))
             count += 1
             size += path.stat().st_size
     return {"file_count": count, "total_bytes": size}
@@ -88,7 +93,8 @@ def copy_application(bundle: Path) -> None:
     shutil.copy2(ROOT / "deploy" / "install-bundle.sh", deploy / "install-bundle.sh")
     shutil.copy2(ROOT / "bundletool.py", bundle / "bundletool.py")
     shutil.copy2(ROOT / "BUNDLE-README.md", bundle / "README.md")
-    shutil.copy2(ROOT / "SERVER-RU.md", bundle / "SERVER-RU.md")
+    for guide in ("SERVER.md", "SERVER-RU.md"):
+        shutil.copy2(ROOT / guide, bundle / guide)
     (deploy / "docker").mkdir(exist_ok=True)
     shutil.copy2(ROOT / "deploy" / "docker" / "compose.yaml", deploy / "docker" / "compose.yaml")
 
@@ -103,34 +109,32 @@ def prompt_password_gui(confirm: bool) -> str:
         import tkinter as tk
         from tkinter import simpledialog, messagebox
     except ImportError:
-        fail("Python установлен без Tkinter. Установи Python с компонентом Tcl/Tk "
-             "либо запусти команду без --gui (ввод в консоли, не через Shift+Insert).")
+        fail(msg("bt.no_tk"))
     root = tk.Tk()
     root.withdraw()
     try:
         for _ in range(3):
             password = simpledialog.askstring(
-                "Telegram Archive — пароль", "Вставь пароль через Ctrl+V (не менее 12 символов):",
+                msg("bt.dlg_title"), msg("bt.dlg_prompt"),
                 show="*", parent=root,
             )
             if password is None:
-                fail("Ввод пароля отменён. Экспорт не будет перемещён.")
+                fail(msg("bt.dlg_cancelled"))
             if len(password) < 12:
-                messagebox.showerror("Пароль", "Пароль должен содержать минимум 12 символов.", parent=root)
+                messagebox.showerror(msg("bt.dlg_error_title"), msg("bt.dlg_too_short"), parent=root)
                 continue
             if not confirm:
                 return password
             again = simpledialog.askstring(
-                "Telegram Archive — подтверждение", "Вставь ТОТ ЖЕ пароль ещё раз через Ctrl+V:",
+                msg("bt.dlg_confirm_title"), msg("bt.dlg_confirm"),
                 show="*", parent=root,
             )
             if again is None:
-                fail("Ввод пароля отменён. Экспорт не будет перемещён.")
+                fail(msg("bt.dlg_cancelled"))
             if password == again:
                 return password
-            messagebox.showerror("Пароль", "Пароли не совпали. Повтори ввод. "
-                                 "Проверь, не добавлены ли пробелы при копировании.", parent=root)
-        fail("Пароль не подтверждён за три попытки. Экспорт не перемещён.")
+            messagebox.showerror(msg("bt.dlg_error_title"), msg("bt.dlg_mismatch"), parent=root)
+        fail(msg("bt.dlg_three_tries"))
     finally:
         root.destroy()
 
@@ -150,21 +154,20 @@ def preflight_password(bundle: Path, gui: bool) -> None:
         initialize(conn)
         if any(conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
                for table in ("imports", "chats", "messages", "media", "contacts")):
-            fail("В папке уже есть незавершённая база с данными. "
-                 "Не перезаписывай её; остановись и проверь содержимое папки ready.")
+            fail(msg("bt.partial_db_ready"))
         # No original data has been imported yet; a password-only stub from a
         # failed Move-Item attempt is safe to replace after new confirmation.
         if gui:
             password = prompt_password_gui(True)
         else:
-            password = getpass.getpass("Пароль (не менее 12 символов): ")
-            again = getpass.getpass("Повтори пароль: ")
+            password = getpass.getpass(msg("password_prompt"))
+            again = getpass.getpass(msg("password_repeat"))
             if len(password) < 12 or password != again:
-                fail("Пароли не совпали или короче 12 символов. Экспорт НЕ перемещён.")
+                fail(msg("bt.preflight_bad"))
         password_hash = PasswordHasher(time_cost=3, memory_cost=65536, parallelism=2).hash(password)
         conn.execute("INSERT OR REPLACE INTO config(name,value) VALUES('password_hash',?)", (password_hash,))
         conn.commit()
-    print("Пароль подтверждён и сохранён в виде хеша Argon2id. Экспорт пока не перемещён.")
+    print(msg("bt.preflight_ok"))
 
 
 def reset_password(bundle: Path, gui: bool) -> None:
@@ -172,21 +175,22 @@ def reset_password(bundle: Path, gui: bool) -> None:
     from argon2 import PasswordHasher
     db = bundle / "data" / "archive.sqlite3"
     if not db.is_file():
-        fail("База не найдена. Укажи папку готового архива.")
+        fail(msg("bt.reset_no_db"))
+    print(msg("bt.reset_stop_first"))
     if gui:
         password = prompt_password_gui(True)
     else:
-        password = getpass.getpass("Новый пароль: ")
-        again = getpass.getpass("Повтори пароль: ")
+        password = getpass.getpass(msg("password_new"))
+        again = getpass.getpass(msg("password_repeat"))
         if password != again or len(password) < 12:
-            fail("Пароли не совпали или короче 12 символов. Ничего не изменено.")
+            fail(msg("bt.reset_bad"))
     digest = PasswordHasher(time_cost=3, memory_cost=65536, parallelism=2).hash(password)
     conn = sqlite3.connect(db, timeout=2)
     try:
         conn.execute("PRAGMA busy_timeout=2000")
         conn.execute("BEGIN IMMEDIATE")
         if not conn.execute("SELECT 1 FROM config WHERE name='password_hash'").fetchone():
-            fail("Нет установленного пароля; проверь, что это готовая база.")
+            fail(msg("bt.reset_no_password"))
         conn.execute("UPDATE config SET value=? WHERE name='password_hash'", (digest,))
         conn.execute("DELETE FROM sessions")
         conn.commit()
@@ -195,7 +199,7 @@ def reset_password(bundle: Path, gui: bool) -> None:
         raise
     finally:
         conn.close()
-    print("Пароль обновлён; все прежние сессии сброшены. Сообщения и медиа не затронуты.")
+    print(msg("bt.reset_ok"))
 
 
 def ask_password(db_file: Path) -> None:
@@ -205,14 +209,14 @@ def ask_password(db_file: Path) -> None:
     conn.row_factory = sqlite3.Row
     initialize(conn)
     if get_config(conn, "password_hash"):
-        print("Пароль уже существует; сохраняю его без изменений.")
+        print(msg("bt.password_exists"))
         conn.close()
         return
-    password = getpass.getpass("Пароль архива (минимум 12 символов): ")
-    again = getpass.getpass("Повтори пароль: ")
+    password = getpass.getpass(msg("bt.archive_password"))
+    again = getpass.getpass(msg("password_repeat"))
     if len(password) < 12 or password != again:
         conn.close()
-        fail("Пароли не совпали или короче 12 символов.")
+        fail(msg("bt.password_bad"))
     hasher = PasswordHasher(time_cost=3, memory_cost=65536, parallelism=2)
     conn.execute("INSERT OR REPLACE INTO config(name,value) VALUES('password_hash',?)", (hasher.hash(password),))
     conn.commit()
@@ -230,8 +234,7 @@ def finalize_db(db_file: Path, bundle: Path) -> dict:
         root = canonical(row["root"])
         if not in_tree(root, exports) or not (root / "result.json").is_file():
             conn.close()
-            fail(f"Импорт {row['id']} ссылается на файлы ВНЕ набора: {root}. "
-                 "Пересобери набор или перемести каждый экспорт в bundle/exports/.")
+            fail(msg("bt.import_outside", id=row["id"], root=root))
         rel = root.relative_to(bundle).as_posix()
         conn.execute("UPDATE imports SET root=?,source_file=? WHERE id=?",
                      (TOKEN + rel, TOKEN + rel + "/result.json", row["id"]))
@@ -250,7 +253,7 @@ def finalize_db(db_file: Path, bundle: Path) -> dict:
 def ensure_json(root: Path) -> Path:
     source = root / "result.json"
     if not source.is_file():
-        fail(f"Не найден result.json в {root}")
+        fail(msg("bt.no_result_json", root=root))
     return source
 
 
@@ -260,45 +263,42 @@ def prepare(args: argparse.Namespace) -> None:
         import fastapi  # noqa: F401
         import argon2  # noqa: F401
     except ImportError:
-        fail("Сначала установи зависимости: python -m pip install -e .  "
-             "(Для больших экспортов обязателен потоковый парсер ijson.)")
+        fail(msg("bt.install_deps"))
     from tgarchive.importer import import_export, import_contacts_only
     bundle = canonical(args.bundle)
     export = canonical(args.export)
     if not export.is_dir():
-        fail(f"Нет каталога экспорта: {export}")
+        fail(msg("bt.no_export_dir", path=export))
     ensure_json(export)
     if in_tree(bundle, export):
-        fail("Каталог набора нельзя размещать ВНУТРИ исходного экспорта.")
+        fail(msg("bt.bundle_inside_export"))
     bundle.mkdir(parents=True, exist_ok=True)
     exports = bundle / "exports"
     exports.mkdir(parents=True, exist_ok=True)
     dest = exports / args.export_name
     if not in_tree(export, exports):
         if not args.copy_export:
-            fail("Экспорт находится вне bundle/exports. Для большого экспорта перемести папку "
-                 "в <bundle>/exports/first-export БЕЗ копирования; или передай --copy-export "
-                 "(потребуется дополнительно столько же места, сколько занимает экспорт).")
+            fail(msg("bt.export_outside"))
         if dest.exists():
-            fail(f"Папка назначения уже есть: {dest}")
+            fail(msg("bt.dest_exists", path=dest))
         if in_tree(bundle, export):
-            fail("Нельзя копировать экспорт в самого себя.")
-        print("Копирую экспорт без загрузки файлов в память; нужно свободное место не меньше объёма экспорта...")
+            fail(msg("bt.copy_into_self"))
+        print(msg("bt.copying"))
         shutil.copytree(export, dest, symlinks=False)
         export = dest
     else:
         if not export.parent == exports:
-            fail("Экспорт должен лежать непосредственно внутри bundle/exports/<название>.")
-    print("Исходный Telegram-экспорт:", export)
+            fail(msg("bt.export_not_direct"))
+    print(msg("bt.source", path=export))
     combined = (export / "export_results.html").is_file()
-    print("Структура:", "JSON + HTML в одной папке" if combined else "JSON")
-    print("Проверяю число и суммарный размер всех файлов без чтения медиа...")
+    print(msg("bt.structure", kind=msg("bt.structure_combined") if combined else "JSON"))
+    print(msg("bt.inventory"))
     inventory = file_inventory(export)
-    print("Исходных файлов:", inventory["file_count"], "Объём (байт):", inventory["total_bytes"])
+    print(msg("bt.inventory_result", count=inventory["file_count"], size=inventory["total_bytes"]))
     copy_application(bundle)
     manifest_path = bundle / "bundle-manifest.json"
     if manifest_path.exists():
-        fail("В наборе уже есть готовый manifest. Для нового набора укажи другой каталог.")
+        fail(msg("bt.manifest_exists"))
     data = bundle / "data"
     data.mkdir(exist_ok=True)
     db_file = data / "archive.sqlite3"
@@ -312,22 +312,19 @@ def prepare(args: argparse.Namespace) -> None:
             initialize(check)
             if any(check.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
                    for table in ("imports", "chats", "messages", "media", "contacts")):
-                fail("В наборе уже есть частично обработанная база. "
-                     "Не перезаписывай её автоматически.")
+                fail(msg("bt.partial_db"))
             if not get_config(check, "password_hash"):
-                fail("В существующей базе нет пароля. Проверь незавершённую сборку.")
+                fail(msg("bt.db_no_password"))
     os.environ["TGARCHIVE_DATA_DIR"] = str(data)
     ask_password(db_file)
-    print("Индексирую сообщения потоково (оригинальные фото/видео не перекодируются)...")
+    print(msg("bt.indexing"))
     try:
         result = import_export(export, progress=True)
         if getattr(args, "expect_chat_records", 0) and result["chats"] != args.expect_chat_records:
-            fail(f"Проверка отчёта: ожидалось {args.expect_chat_records} записей чатов, "
-                 f"получено {result['chats']}. Не загружай этот пакет.")
+            fail(msg("bt.expect_chats", expected=args.expect_chat_records, actual=result["chats"]))
         if getattr(args, "expect_message_records", 0) and result["messages"] != args.expect_message_records:
-            fail(f"Проверка отчёта: ожидалось {args.expect_message_records} сообщений, "
-                 f"получено {result['messages']}. Не загружай этот пакет.")
-        print("Индексирую контакты (без медиа)...")
+            fail(msg("bt.expect_messages", expected=args.expect_message_records, actual=result["messages"]))
+        print(msg("bt.indexing_contacts"))
         contacts_count = import_contacts_only(export / "result.json")
         stats = finalize_db(db_file, bundle)
         digest = sha256(export / "result.json")
@@ -340,33 +337,32 @@ def prepare(args: argparse.Namespace) -> None:
             "import_audit": {k: result[k] for k in ("chats", "left_chats", "messages",
                                                   "media_references", "media_present", "media_missing")},
             "source_formats": ["JSON", "HTML"] if combined else ["JSON"],
-            "app_version": "0.4.0", "contacts_indexed_count": contacts_count,
+            "app_version": "0.5.0", "contacts_indexed_count": contacts_count,
             "original_export_is_unchanged": True,
         }
         temporary = manifest_path.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         temporary.replace(manifest_path)
-        print("\nГОТОВО. Теперь загрузи ВЕСЬ каталог наборa на Linux VPS.")
-        print("Уникальных чатов:", stats["chats"], "Сообщений:", stats["messages"], "Медиа:", stats["media"])
-        print("Записей чатов JSON:", result["chats"], "(покинутых:", result["left_chats"], ")")
-        print("Медиа-ссылок:", result["media_references"], "файлов найдено:", result["media_present"],
-              "отсутствуют:", result["media_missing"])
+        print(msg("bt.done"))
+        print(msg("bt.done_stats", chats=stats["chats"], messages=stats["messages"], media=stats["media"]))
+        print(msg("bt.done_chats", chats=result["chats"], left=result["left_chats"]))
+        print(msg("bt.done_media", refs=result["media_references"], present=result["media_present"],
+                  missing=result["media_missing"]))
         if result["media_missing"]:
-            print("ВНИМАНИЕ: часть путей из result.json не найдена на диске. "
-                  "Это могут быть невыгруженные вложения: проверь настройки экспорта.")
-        print("Каталог:", bundle)
+            print(msg("bt.media_missing"))
+        print(msg("bt.folder", path=bundle))
     except BaseException:
-        print("Сборка не завершена: НЕ загружай этот набор. Создай новый чистый каталог.", file=sys.stderr)
+        print(msg("bt.build_failed"), file=sys.stderr)
         raise
 
 
 def read_manifest(bundle: Path) -> dict:
     path = bundle / "bundle-manifest.json"
     if not path.is_file():
-        fail("Нет bundle-manifest.json. Сборка не завершена или переданы не все файлы.")
+        fail(msg("bt.no_manifest"))
     meta = json.loads(path.read_text(encoding="utf-8"))
     if meta.get("format") != "telegram-archive-portable" or meta.get("format_version") != VERSION:
-        fail("Неизвестная версия переносимого набора.")
+        fail(msg("bt.unknown_version"))
     return meta
 
 
@@ -374,39 +370,38 @@ def verify(bundle: Path, full: bool) -> None:
     meta = read_manifest(bundle)
     export_rel = Path(meta["primary_export"])
     if export_rel.is_absolute() or ".." in export_rel.parts or export_rel.parts[0] != "exports":
-        fail("В manifest некорректный путь экспорта.")
+        fail(msg("bt.bad_manifest_path"))
     source = bundle / export_rel / "result.json"
     ensure_json(source.parent)
-    print("Проверяю SHA256 исходного result.json (может занять время)...")
+    print(msg("bt.sha_checking"))
     if sha256(source) != meta["telegram_json_sha256"]:
-        fail("SHA256 result.json не совпадает: файл изменён или передан не полностью.")
+        fail(msg("bt.sha_mismatch"))
     if meta.get("source_inventory"):
-        print("Проверяю полный список файлов по числу и объёму...")
+        print(msg("bt.inventory_checking"))
         actual_inventory = file_inventory(source.parent)
         if actual_inventory != meta["source_inventory"]:
-            fail(f"Неполная передача файлов: ожидалось {meta['source_inventory']}, "
-                 f"получено {actual_inventory}")
+            fail(msg("bt.inventory_mismatch", expected=meta["source_inventory"], actual=actual_inventory))
     db_file = bundle / "data" / "archive.sqlite3"
     conn = sqlite3.connect(f"file:{db_file.as_posix()}?mode=ro", uri=True)
     qc = conn.execute("PRAGMA quick_check").fetchone()[0]
     if qc != "ok":
-        fail(f"Ошибка базы SQLite: {qc}")
+        fail(msg("bt.sqlite_error", error=qc))
     roots = {}
     for id_, raw in conn.execute("SELECT id,root FROM imports"):
         if raw.startswith(TOKEN):
             rel = Path(raw[len(TOKEN):])
             if rel.is_absolute() or ".." in rel.parts or rel.parts[0] != "exports":
-                fail("Некорректная переносимая ссылка в SQLite")
+                fail(msg("bt.bad_portable_ref"))
             roots[id_] = bundle / rel
         else:
             root = canonical(raw)
             if not in_tree(root, bundle / "exports"):
-                fail(f"SQLite импорт ссылается за пределы набора: {root}")
+                fail(msg("bt.import_outside_bundle", root=root))
             roots[id_] = root
     for root in roots.values():
         ensure_json(root)
     if full:
-        print("Проверяю наличие КАЖДОГО медиафайла (на большом экспорте это может быть долго)...")
+        print(msg("bt.media_checking"))
         missing = []
         seen = 0
         for import_id, relpath in conn.execute("SELECT import_id,relpath FROM media"):
@@ -417,8 +412,8 @@ def verify(bundle: Path, full: bool) -> None:
                     missing.append(str(target))
             seen += 1
         if missing:
-            fail("Не найдены медиа (примеры): " + "; ".join(missing))
-        print(f"Файлов, упомянутых в SQLite: {seen:,}")
+            fail(msg("bt.media_not_found", examples="; ".join(missing)))
+        print(msg("bt.media_seen", count=f"{seen:,}"))
     else:
         missing = []
         for import_id, relpath in conn.execute("SELECT import_id,relpath FROM media LIMIT 100"):
@@ -427,9 +422,9 @@ def verify(bundle: Path, full: bool) -> None:
             if not in_tree(target, canonical(root)) or not target.is_file():
                 missing.append(str(target))
         if missing:
-            fail("Не найден один из первых 100 медиа: " + "; ".join(missing[:4]))
+            fail(msg("bt.media_first100", examples="; ".join(missing[:4])))
     conn.close()
-    print("Проверка пройдена.")
+    print(msg("bt.verified"))
 
 
 def activate(bundle: Path) -> None:
@@ -445,18 +440,18 @@ def activate(bundle: Path) -> None:
             if raw.startswith(TOKEN):
                 rel = Path(raw[len(TOKEN):])
                 if rel.is_absolute() or ".." in rel.parts or rel.parts[0] != "exports":
-                    fail("Подозрительная ссылка в SQLite: " + raw)
+                    fail(msg("bt.suspicious_ref", ref=raw))
                 root = canonical(bundle / rel)
                 if not in_tree(root, bundle / "exports"):
-                    fail("Путь экспорта выходит за пределы набора: " + str(root))
+                    fail(msg("bt.export_escapes", path=root))
                 ensure_json(root)
                 conn.execute("UPDATE imports SET root=?,source_file=? WHERE id=?",
                              (str(root), str(root / "result.json"), row["id"]))
             elif not in_tree(canonical(raw), bundle / "exports"):
-                fail("Неожиданная ссылка на экспорт за пределами пакета: " + raw)
+                fail(msg("bt.unexpected_ref", ref=raw))
         conn.execute("DELETE FROM sessions")
         conn.commit()
-        print("SQLite пути привязаны к серверу. Пароль и полнотекстовый индекс сохранены.")
+        print(msg("bt.activated"))
     except BaseException:
         conn.rollback()
         raise
@@ -469,43 +464,43 @@ def pack(bundle: Path, output: Path) -> None:
     verify(bundle, full=False)
     output = output.expanduser().absolute()
     if in_tree(output, bundle):
-        fail("Нельзя создавать .tar ВНУТРИ упаковываемого каталога.")
+        fail(msg("bt.tar_inside"))
     if output.exists():
-        fail("Файл уже существует: " + str(output))
+        fail(msg("bt.file_exists", path=output))
     output.parent.mkdir(parents=True, exist_ok=True)
-    print("Создаю один TAR без сжатия: медиа уже сжаты. Нужно дополнительное место размером с весь набор.")
+    print(msg("bt.packing"))
     try:
         with tarfile.open(output, mode="w|") as archive:
             archive.add(bundle, arcname="tgarchive", recursive=True)
     except BaseException:
         output.unlink(missing_ok=True)
         raise
-    print("ГОТОВО, однофайловый набор:", output)
+    print(msg("bt.packed", path=output))
 
 def main():
-    parser = argparse.ArgumentParser(description="Portable Telegram Archive (no Docker)")
+    parser = argparse.ArgumentParser(description=msg("bt.help"))
     sub = parser.add_subparsers(dest="cmd", required=True)
-    p = sub.add_parser("prepare", help="На Windows собери переносимую папку")
-    p.add_argument("--export", required=True, help="Каталог с result.json и всеми медиа")
-    p.add_argument("--bundle", required=True, help="Папка готового набора")
-    p.add_argument("--export-name", default="first-export", help="Имя новой папки под exports/")
-    p.add_argument("--copy-export", action="store_true", help="КОПИРОВАТЬ экспорт, если он лежит отдельно (нужно столько же места)")
+    p = sub.add_parser("prepare", help=msg("bt.help_prepare"))
+    p.add_argument("--export", required=True, help=msg("bt.help_export"))
+    p.add_argument("--bundle", required=True, help=msg("bt.help_bundle"))
+    p.add_argument("--export-name", default="first-export", help=msg("bt.help_export_name"))
+    p.add_argument("--copy-export", action="store_true", help=msg("bt.help_copy"))
     p.add_argument("--expect-chat-records", type=int, default=0,
-                   help="Ожидаемое точное число записей chats.list + left_chats.list из отчёта")
+                   help=msg("bt.help_expect_chats"))
     p.add_argument("--expect-message-records", type=int, default=0,
-                   help="Ожидаемое точное число сообщений из отчёта")
-    v = sub.add_parser("verify", help="Проверить переносимый набор до/после передачи")
+                   help=msg("bt.help_expect_messages"))
+    v = sub.add_parser("verify", help=msg("bt.help_verify"))
     v.add_argument("--bundle", required=True)
-    v.add_argument("--full", action="store_true", help="Проверить наличие всех медиа (медленно)")
-    a = sub.add_parser("activate", help="Привязать SQLite к путям Linux после загрузки")
+    v.add_argument("--full", action="store_true", help=msg("bt.help_full"))
+    a = sub.add_parser("activate", help=msg("bt.help_activate"))
     a.add_argument("--bundle", required=True)
-    tar_cmd = sub.add_parser("pack", help="Необязательно: записать весь готовый набор в один .tar")
+    tar_cmd = sub.add_parser("pack", help=msg("bt.help_pack"))
     tar_cmd.add_argument("--bundle", required=True)
-    tar_cmd.add_argument("--output", required=True, help="Путь вне bundle; нужно место размером с весь набор")
-    pw = sub.add_parser("preflight-password", help="Проверить/установить пароль ДО перемещения экспорта")
+    tar_cmd.add_argument("--output", required=True, help=msg("bt.help_output"))
+    pw = sub.add_parser("preflight-password", help=msg("bt.help_preflight"))
     pw.add_argument("--bundle", required=True)
-    pw.add_argument("--gui", action="store_true", help="Окна с поддержкой Ctrl+V (Windows)")
-    rp = sub.add_parser("reset-password", help="Сменить пароль без повторного импорта")
+    pw.add_argument("--gui", action="store_true", help=msg("bt.help_gui"))
+    rp = sub.add_parser("reset-password", help=msg("bt.help_reset"))
     rp.add_argument("--bundle", required=True)
     rp.add_argument("--gui", action="store_true")
     args = parser.parse_args()
@@ -515,7 +510,7 @@ def main():
         reset_password(canonical(args.bundle), args.gui)
     elif args.cmd == "prepare":
         if not args.export_name or args.export_name in (".", "..") or "/" in args.export_name or "\\" in args.export_name:
-            fail("Имя экспорта должно быть простым именем папки.")
+            fail(msg("bt.bad_export_name"))
         prepare(args)
     elif args.cmd == "verify":
         verify(canonical(args.bundle), args.full)

@@ -38,7 +38,13 @@ All web UI strings live in [`tgarchive/static/i18n.js`](tgarchive/static/i18n.js
 block under a new language code, translate the values, add the code to `LANGS`, and run
 `python -m pytest tests/test_i18n.py`: it checks that every key exists in every dictionary.
 
+Console messages (CLI, `bundletool.py`, `start-local.py`) live in
+[`tgarchive/messages.py`](tgarchive/messages.py) as `(Russian, English)` pairs, and
+`tests/test_messages.py` checks them. Windows and server scripts keep both texts inline
+(`T 'ru' 'en'` in PowerShell, `call :say "ru" "en"` in batch files, `say 'ru' 'en'` in bash);
+`tests/test_windows_scripts.py` checks encodings and characters that `cmd.exe` cannot print.
+
 ## Ideas that would help
 
-- More UI languages (see above), and English messages for the CLI and Windows scripts.
+- More UI languages (see above).
 - More Telegram export edge cases as synthetic test fixtures.

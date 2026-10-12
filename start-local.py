@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # copyright by berlonak
 # telegram: @Kilax123
-"""Запустить замороженный Telegram Archive локально, НЕ меняя переносимые пути в SQLite.
+"""Run a ready Telegram Archive bundle locally WITHOUT changing the portable paths in SQLite.
 
-Этот файл и START-LOCAL.bat кладутся в КОРЕНЬ TelegramArchive-ready.
-Не выполняйте bundletool activate локально: он записывает абсолютные пути Windows
-и усложняет последующий перенос этого же пакета на Linux.
+This file and START-LOCAL.bat are placed in the ROOT of TelegramArchive-ready.
+Do not run bundletool activate locally: it writes absolute Windows paths and makes
+a later move of the same bundle to Linux harder.
 """
 from __future__ import annotations
 
@@ -17,6 +17,8 @@ from pathlib import Path
 
 BUNDLE = Path(__file__).resolve().parent
 TOKEN = "@TGARCHIVE_BUNDLE@/"
+sys.path.insert(0, str(BUNDLE / "app"))
+from tgarchive.messages import msg  # noqa: E402 - needs the bundled app on sys.path
 
 
 def preflight() -> None:
@@ -26,21 +28,20 @@ def preflight() -> None:
     ]
     missing = [str(p) for p in required if not p.exists()]
     if missing:
-        raise RuntimeError("Неполный готовый архив. Отсутствует:\n" + "\n".join(missing))
+        raise RuntimeError(msg("local.incomplete", missing="\n".join(missing)))
     meta = json.loads((BUNDLE / "bundle-manifest.json").read_text(encoding="utf-8"))
     if meta.get("format") != "telegram-archive-portable":
-        raise RuntimeError("Это не переносимый архив Telegram Archive.")
+        raise RuntimeError(msg("local.not_bundle"))
     if not (BUNDLE / meta["primary_export"] / "result.json").is_file():
-        raise RuntimeError("Исходный result.json не найден в готовой папке.")
+        raise RuntimeError(msg("local.no_json"))
 
 
 def main() -> None:
     preflight()
-    # SQLite индекс остаётся в готовом пакете; виртуальное окружение лежит СНАРУЖИ.
+    # The SQLite index stays inside the bundle; the virtual environment lives OUTSIDE it.
     os.environ["TGARCHIVE_DATA_DIR"] = str((BUNDLE / "data").resolve())
     os.environ["TGARCHIVE_BUNDLE_ROOT"] = str(BUNDLE.resolve())
-    os.environ["TGARCHIVE_HTTPS"] = "0"  # Только loopback, НЕ для подключения из интернета.
-    sys.path.insert(0, str(BUNDLE / "app"))
+    os.environ["TGARCHIVE_HTTPS"] = "0"  # Loopback only, NOT for internet access.
 
     import importlib
     import uvicorn
@@ -53,17 +54,17 @@ def main() -> None:
         messages = conn.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
         password = conn.execute("SELECT value FROM config WHERE name='password_hash'").fetchone()
         if not password:
-            raise RuntimeError("В базе нет пароля. Проверь полноту готового пакета.")
+            raise RuntimeError(msg("local.no_password"))
 
-    print(f"\nTelegram Archive: {chats:,} чатов; {messages:,} сообщений.")
-    print("ОТКРОЙ: http://127.0.0.1:8000")
-    print("Вводи пароль, который задавал при подготовке архива.")
-    print("Для остановки нажми Ctrl+C в этом окне. Не открывай порт 8000 наружу.\n")
+    print("\n" + msg("local.summary", chats=f"{chats:,}", messages=f"{messages:,}"))
+    print(msg("local.open"))
+    print(msg("local.password_hint"))
+    print(msg("local.stop_hint") + "\n")
 
     try:
         uvicorn.run(site.app, host="127.0.0.1", port=8000, workers=1, proxy_headers=False)
     finally:
-        # Дождаться остановки, чтобы при будущем переносе не скопировать живой WAL.
+        # Checkpoint on shutdown so a later transfer never copies a live WAL file.
         db = BUNDLE / "data" / "archive.sqlite3"
         with sqlite3.connect(db, timeout=10) as conn:
             conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
@@ -73,7 +74,7 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nОстановлено.")
+        print("\n" + msg("local.stopped"))
     except Exception as exc:
-        print(f"\nОшибка: {exc}", file=sys.stderr)
+        print("\n" + msg("error", message=exc), file=sys.stderr)
         raise SystemExit(1)

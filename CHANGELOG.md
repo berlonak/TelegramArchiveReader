@@ -3,6 +3,27 @@
 Versions before 0.3.4 were not published. Their entries are reconstructed from code comments,
 documentation and regression tests.
 
+## [0.5.0] - 2026-10-12
+
+### Added
+- Russian and English messages for the `tgarchive` CLI, `bundletool.py`, `start-local.py`,
+  the Windows builder and recovery scripts, `CHECK-LOCK`, `START-LOCAL.bat`,
+  `RESET-PASSWORD.bat` and the server install scripts. The language follows
+  `TGARCHIVE_LANG=ru|en`, otherwise the system language (Windows display language or
+  `LC_ALL`/`LC_MESSAGES`/`LANG`), otherwise English.
+- The move/copy confirmation word follows the language: `MOVE`/`COPY` or
+  `ПЕРЕМЕСТИТЬ`/`КОПИРОВАТЬ`.
+- English guides `WINDOWS.md` and `SERVER.md`; the ready bundle README is bilingual.
+- Static tests for Windows batch and PowerShell scripts (encoding, code page, labels).
+
+### Changed
+- Placeholder texts written into the index during import (untitled chat, poll, location,
+  Saved Messages) use the language of the import.
+- `CHECK-LOCK.bat` asks for the export folder in PowerShell instead of `set /p`, which
+  handles non-ASCII paths more reliably.
+- Failure banners of the Windows builder and resume scripts are printed by the PowerShell
+  scripts themselves.
+
 ## [0.4.0] - 2026-10-12
 
 ### Added

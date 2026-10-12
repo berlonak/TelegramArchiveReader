@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Iterator
 
 from .db import connect, get_config, initialize, set_config
+from .messages import msg
 
 try:
     import ijson
@@ -244,7 +245,7 @@ def chat_key(meta: dict) -> str:
 
 def ensure_chat(conn: sqlite3.Connection, meta: dict, import_id: int, root: Path) -> int:
     key = chat_key(meta)
-    title = str(meta.get("name") or ("Избранное" if "saved" in str(meta.get("type")) else "Без названия"))
+    title = str(meta.get("name") or (msg("import.saved_title") if "saved" in str(meta.get("type")) else msg("import.untitled")))
     kind = str(meta.get("type") or "unknown")
     avatar = valid_relative_path(meta.get("photo"))
     if avatar and not (root / avatar).resolve().is_relative_to(root):
@@ -285,11 +286,11 @@ def process_message(conn: sqlite3.Connection, m: dict, chat_id: int, import_id: 
         text = action.replace("_", " ")
     if not text and isinstance(m.get("poll"), dict):
         question, _ = extract_text(m["poll"].get("question"))
-        text = "Опрос: " + (question or "без названия")
+        text = msg("import.poll", question=question or msg("import.poll_untitled"))
     if not text and m.get("sticker_emoji"):
         text = str(m["sticker_emoji"])
     if not text and m.get("location_information"):
-        text = "Геопозиция"
+        text = msg("import.location")
     # Only use media paths that actually exist; keep the previous export's media
     # and filename search tokens when a newer text-only export omits attachments.
     valid_media = []
@@ -381,7 +382,7 @@ def import_export(path: str | Path, progress: bool = True) -> dict:
                     if stats["messages"] % 2000 == 0:
                         conn.commit()
                         if progress:
-                            print(f"  Прочитано сообщений: {stats['messages']:,}", flush=True)
+                            print(msg("import.progress", count=f"{stats['messages']:,}"), flush=True)
             elif event == "end":
                 conn.commit()
                 current_chat = None
@@ -423,7 +424,7 @@ def import_contacts_only(source_file: str | Path, *, conn: sqlite3.Connection | 
         # rather than assuming the original import root is an absolute Windows path.
         imports = conn.execute("SELECT id,root FROM imports ORDER BY id").fetchall()
         if not imports:
-            raise ValueError("Сначала импортируйте архив сообщений")
+            raise ValueError(msg("import.contacts_first"))
         # Prefer the matching root so new exports do not replace earlier contacts.
         # Existing ready v0.2 bundles usually have only a single primary import.
         bundle_env = __import__('os').environ.get('TGARCHIVE_BUNDLE_ROOT')

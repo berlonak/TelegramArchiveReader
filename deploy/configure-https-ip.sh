@@ -11,16 +11,33 @@ CERT_NAME=tgarchive-ip
 SITE=/etc/nginx/sites-available/tgarchive
 ENABLED=/etc/nginx/sites-enabled/tgarchive
 LIVE=/etc/letsencrypt/live/$CERT_NAME
+# Messages: TGARCHIVE_LANG=ru|en, otherwise the locale (LC_ALL, LC_MESSAGES, LANG), otherwise English.
+tg_lang() {
+  local value="${TGARCHIVE_LANG:-}"
+  value="${value,,}"
+  if [[ "$value" == ru || "$value" == en ]]; then echo "$value"; return; fi
+  for value in "${LC_ALL:-}" "${LC_MESSAGES:-}" "${LANG:-}"; do
+    [[ -n "$value" ]] || continue
+    case "${value,,}" in ru*|uk*|be*|kk*) echo ru ;; *) echo en ;; esac
+    return
+  done
+  echo en
+}
+TG_LANG="$(tg_lang)"
+export TGARCHIVE_LANG="$TG_LANG"
+say() { if [[ "$TG_LANG" == ru ]]; then printf '%s\n' "$1"; else printf '%s\n' "$2"; fi; }
+die() { say "$1" "$2" >&2; exit "${3:-2}"; }
 
-[[ "$(id -u)" == "0" ]] || { echo 'Use sudo.' >&2; exit 2; }
-[[ -n "$IP" && -n "$EMAIL" ]] || { echo "Usage: sudo bash $0 PUBLIC_IP EMAIL" >&2; exit 2; }
+[[ "$(id -u)" == "0" ]] || die 'Запусти через sudo.' 'Use sudo.'
+[[ -n "$IP" && -n "$EMAIL" ]] || die "Использование: sudo bash $0 ПУБЛИЧНЫЙ_IP EMAIL" "Usage: sudo bash $0 PUBLIC_IP EMAIL"
 python3 -c 'import ipaddress, sys; a = ipaddress.ip_address(sys.argv[1]); sys.exit(0 if a.is_global else 1)' "$IP" \
-  || { echo "Not a public IP address: $IP" >&2; exit 2; }
-command -v nginx >/dev/null || { echo 'nginx is not installed.' >&2; exit 2; }
-command -v certbot >/dev/null || { echo 'certbot is not installed.' >&2; exit 2; }
+  || die "Это не публичный IP-адрес: $IP" "Not a public IP address: $IP"
+command -v nginx >/dev/null || die 'nginx не установлен.' 'nginx is not installed.'
+command -v certbot >/dev/null || die 'certbot не установлен.' 'certbot is not installed.'
 version="$(certbot --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -n1)"
 python3 -c 'import sys; v = tuple(map(int, sys.argv[1].split("."))); sys.exit(0 if v >= (5, 4) else 1)' "${version:-0.0}" \
-  || { echo "Certbot 5.4+ is required for IP certificates via webroot (found: ${version:-unknown})." >&2; exit 2; }
+  || die "Для IP-сертификатов через webroot нужен Certbot 5.4+ (найден: ${version:-неизвестно})." \
+         "Certbot 5.4+ is required for IP certificates via webroot (found: ${version:-unknown})."
 
 # IPv6 literals need brackets inside URLs.
 HOSTPART="$IP"
@@ -89,13 +106,13 @@ install_site
 
 common=(--non-interactive --agree-tos -m "$EMAIL" --preferred-profile shortlived
         --webroot --webroot-path "$WEBROOT" --ip-address "$IP" --cert-name "$CERT_NAME")
-echo 'Testing issuance against the Let'"'"'s Encrypt staging environment...'
+say "Проверяю выпуск на тестовом сервере Let's Encrypt (staging)..." "Testing issuance against the Let's Encrypt staging environment..."
 certbot certonly --dry-run "${common[@]}"
-echo 'Requesting the real certificate...'
+say 'Запрашиваю настоящий сертификат...' 'Requesting the real certificate...'
 certbot certonly --keep-until-expiring --deploy-hook 'systemctl reload nginx' "${common[@]}"
-[[ -f "$LIVE/fullchain.pem" && -f "$LIVE/privkey.pem" ]] || { echo "Certificate files not found in $LIVE" >&2; exit 1; }
+[[ -f "$LIVE/fullchain.pem" && -f "$LIVE/privkey.pem" ]] || die "Файлы сертификата не найдены в $LIVE" "Certificate files not found in $LIVE" 1
 
 # Phase 2: enable HTTPS reverse proxy to the localhost-only application.
 { http_block; echo; https_block; } > "$SITE"
 install_site
-echo "HTTPS configured: https://$HOSTPART/"
+say "HTTPS настроен: https://$HOSTPART/" "HTTPS configured: https://$HOSTPART/"

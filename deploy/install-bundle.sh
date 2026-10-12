@@ -3,17 +3,33 @@
 # telegram: @Kilax123
 # Install portable pre-indexed Telegram Archive. Ubuntu/Debian VPS, no Docker.
 set -euo pipefail
+# Messages: TGARCHIVE_LANG=ru|en, otherwise the locale (LC_ALL, LC_MESSAGES, LANG), otherwise English.
+tg_lang() {
+  local value="${TGARCHIVE_LANG:-}"
+  value="${value,,}"
+  if [[ "$value" == ru || "$value" == en ]]; then echo "$value"; return; fi
+  for value in "${LC_ALL:-}" "${LC_MESSAGES:-}" "${LANG:-}"; do
+    [[ -n "$value" ]] || continue
+    case "${value,,}" in ru*|uk*|be*|kk*) echo ru ;; *) echo en ;; esac
+    return
+  done
+  echo en
+}
+TG_LANG="$(tg_lang)"
+export TGARCHIVE_LANG="$TG_LANG"
+say() { if [[ "$TG_LANG" == ru ]]; then printf '%s\n' "$1"; else printf '%s\n' "$2"; fi; }
+die() { say "$1" "$2" >&2; exit "${3:-2}"; }
 BUNDLE=/srv/tgarchive
 IP="${1:-}"
 EMAIL="${2:-}"
-[[ "$(id -u)" == "0" ]] || { echo 'Use sudo.' >&2; exit 2; }
-[[ -n "$IP" && -n "$EMAIL" ]] || { echo "Usage: sudo bash $BUNDLE/deploy/install-bundle.sh PUBLIC_IPV4 EMAIL" >&2; exit 2; }
-[[ -f "$BUNDLE/bundle-manifest.json" && -f "$BUNDLE/data/archive.sqlite3" ]] || { echo "Place complete bundle at $BUNDLE first" >&2; exit 2; }
-[[ "$(realpath "$BUNDLE")" == "$BUNDLE" ]] || { echo "Bundle cannot be a symlink" >&2; exit 2; }
-command -v apt-get >/dev/null || { echo "Designed for Ubuntu/Debian only" >&2; exit 2; }
+[[ "$(id -u)" == "0" ]] || die 'Запусти через sudo.' 'Use sudo.'
+[[ -n "$IP" && -n "$EMAIL" ]] || die "Использование: sudo bash $BUNDLE/deploy/install-bundle.sh ПУБЛИЧНЫЙ_IPV4 EMAIL" "Usage: sudo bash $BUNDLE/deploy/install-bundle.sh PUBLIC_IPV4 EMAIL"
+[[ -f "$BUNDLE/bundle-manifest.json" && -f "$BUNDLE/data/archive.sqlite3" ]] || die "Сначала положи полный готовый пакет в $BUNDLE" "Place complete bundle at $BUNDLE first"
+[[ "$(realpath "$BUNDLE")" == "$BUNDLE" ]] || die 'Пакет не может быть символической ссылкой' 'Bundle cannot be a symlink'
+command -v apt-get >/dev/null || die 'Скрипт рассчитан только на Ubuntu/Debian' 'Designed for Ubuntu/Debian only'
 if systemctl is-active --quiet tgarchive; then
-  echo 'An existing tgarchive service is active. Stop it and back up its DB before reinstallation.' >&2
-  exit 2
+  die 'Сервис tgarchive уже работает. Останови его и сделай резервную копию базы перед переустановкой.' \
+      'An existing tgarchive service is active. Stop it and back up its DB before reinstallation.'
 fi
 apt-get update
 apt-get install -y python3 python3-venv python3-pip nginx snapd
@@ -76,5 +92,5 @@ if [[ -x /snap/bin/certbot ]]; then
   systemctl daemon-reload
   systemctl enable --now tgarchive-cert-renew.timer
 fi
-echo "Deployment finished: https://$IP"
-echo 'Important: run certbot renew --dry-run; test login and a photo/video.'
+say "Установка завершена: https://$IP" "Deployment finished: https://$IP"
+say 'Важно: выполни certbot renew --dry-run; проверь вход, фото и видео.' 'Important: run certbot renew --dry-run; test login and a photo/video.'
