@@ -29,7 +29,7 @@ def test_complete_builder_creates_immediately_local_runnable_bundle(tmp_path, mo
     assert (bundle/"RESET-PASSWORD.bat").is_file()
     assert (bundle/"SERVER-RU.md").is_file()
     assert (bundle/"deploy"/"docker"/"compose.yaml").is_file()
-    assert json.loads((bundle/"bundle-manifest.json").read_text())["app_version"] == "0.3.4"
+    assert json.loads((bundle/"bundle-manifest.json").read_text())["app_version"] == "0.4.0"
     bundletool.verify(bundle,full=True)
     moved=tmp_path/"moved bundle"
     shutil.move(bundle,moved)

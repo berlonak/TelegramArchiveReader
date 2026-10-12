@@ -32,7 +32,13 @@ tgarchive serve
   authenticated media.
 - Behaviour that moves or deletes user files must stay explicit and confirmable.
 
+## Adding a language
+
+All web UI strings live in [`tgarchive/static/i18n.js`](tgarchive/static/i18n.js). Copy the `en`
+block under a new language code, translate the values, add the code to `LANGS`, and run
+`python -m pytest tests/test_i18n.py`: it checks that every key exists in every dictionary.
+
 ## Ideas that would help
 
-- An English (and other languages) translation of the web UI, which is currently Russian.
+- More UI languages (see above), and English messages for the CLI and Windows scripts.
 - More Telegram export edge cases as synthetic test fixtures.

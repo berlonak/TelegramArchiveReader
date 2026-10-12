@@ -39,6 +39,8 @@ the importer streams the JSON one message at a time and media files are never co
   in-browser viewer and downloads.
 - **Bookmarks**, **contacts from the export**, and the **raw JSON** of any message (every
   export field is preserved, including ones the UI does not show).
+- **English and Russian interface** with a one-click switch (menu or sign-in page). The
+  language follows the browser by default and the choice is remembered.
 - Dark and light themes, mobile layout, `Ctrl/⌘ + K` for search.
 - **Portable bundle**: index once on Windows, then copy the ready folder to a Linux VPS
   without re-indexing. Includes integrity checks (SHA-256 of `result.json`, file count and
@@ -48,8 +50,8 @@ the importer streams the JSON one message at a time and media files are never co
 |---|---|---|
 | ![Overview](docs/screenshots/home.png) | ![Search](docs/screenshots/search.png) | ![Mobile](docs/screenshots/mobile.png) |
 
-> The user interface is currently in **Russian**. Translations are welcome, see
-> [CONTRIBUTING.md](CONTRIBUTING.md).
+> More languages are welcome: a translation is a single dictionary in
+> [`tgarchive/static/i18n.js`](tgarchive/static/i18n.js), see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Security
 
@@ -80,7 +82,7 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -e .
 
 tgarchive init                     # set the archive password
-tgarchive import examples/demo-export   # synthetic demo data; or the path to your export
+tgarchive import examples/demo-export-en   # synthetic demo data; or the path to your export
 tgarchive serve                    # http://127.0.0.1:8000
 ```
 
@@ -167,7 +169,7 @@ bundletool.py       prepare / verify / pack / activate portable bundles
 start-local.py      local launcher copied into the ready bundle
 *.bat, *.ps1        Windows builder, recovery and diagnostics
 deploy/             systemd units, nginx + Let's Encrypt setup, Docker Compose
-examples/           synthetic demo export (no real data)
+examples/           synthetic demo exports in English and Russian (no real data)
 tests/              pytest suite
 ```
 

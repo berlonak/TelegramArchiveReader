@@ -9,6 +9,7 @@
   <title>Архив переписок</title>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/i18n.js" defer></script>
   <script src="/assets/app.js" defer></script>
 </head>
 <body>
@@ -17,71 +18,71 @@
   <form id="loginForm" class="login-card">
     <div class="login-emblem"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 3.8 18.6 20c-.25 1.15-.9 1.44-1.8.91l-5-3.69-2.42 2.28c-.26.26-.48.48-1 .48l.36-5.09 9.26-8.38c.4-.36-.09-.56-.61-.21l-11.45 7.2L1 12.05c-1.1-.35-1.12-1.1.23-1.63L20.1 3.2c.87-.32 1.62.2 1.8.6Z"/></svg></div>
     
-    <h1>Архив переписок</h1>
-    <p>Доступ по паролю.</p>
-    <label class="login-label" for="passwordInput">Пароль архива</label>
-    <div class="password-wrap"><input id="passwordInput" type="password" placeholder="Введите пароль" required autocomplete="current-password" minlength="12"><button type="button" id="eyeButton" class="icon-button" aria-label="Показать пароль">◉</button></div>
+    <h1 data-i18n="login.title">Архив переписок</h1>
+    <p data-i18n="login.subtitle">Доступ по паролю.</p>
+    <label class="login-label" for="passwordInput" data-i18n="login.label">Пароль архива</label>
+    <div class="password-wrap"><input id="passwordInput" type="password" placeholder="Введите пароль" data-i18n-placeholder="login.placeholder" required autocomplete="current-password" minlength="12"><button type="button" id="eyeButton" class="icon-button" aria-label="Показать пароль" data-i18n-aria="login.show">◉</button></div>
     <p id="loginError" class="login-error" role="alert"></p>
-    <button class="primary-button login-submit" id="loginButton" type="submit">Войти <span>→</span></button>
-    <div class="login-footer">Только чтение</div>
+    <button class="primary-button login-submit" id="loginButton" type="submit" data-i18n="login.submit">Войти <span>→</span></button>
+    <div class="login-footer"><span data-i18n="login.footer">Только чтение</span> · <button type="button" id="loginLang" class="lang-link" data-i18n="lang.short">English</button></div>
   </form>
 </section>
-<div id="loadingPage" class="loading-page"><span class="spinner"></span>Загружаем архив…</div>
+<div id="loadingPage" class="loading-page"><span class="spinner"></span><span data-i18n="loading">Загружаем архив…</span></div>
 <div id="appPage" class="app-shell" hidden>
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-head">
       <div class="brand-logo"><svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 3.8 18.6 20c-.25 1.15-.9 1.44-1.8.91l-5-3.69-2.42 2.28c-.26.26-.48.48-1 .48l.36-5.09 9.26-8.38c.4-.36-.09-.56-.61-.21l-11.45 7.2L1 12.05c-1.1-.35-1.12-1.1.23-1.63L20.1 3.2c.87-.32 1.62.2 1.8.6Z"/></svg></div>
-      <div class="brand-names"><b>Telegram <span>Archive</span></b><small>История сообщений</small></div>
-      <button id="sidebarClose" class="icon-button mobile-only" aria-label="Скрыть панель">✕</button>
-      <button id="optionsButton" class="icon-button desktop-only" title="Меню" aria-label="Меню">⋮</button>
-      <div id="optionsMenu" class="options-menu" hidden><button id="themeButton">☼ Переключить тему</button><button id="logoutButton">↪ Выйти из архива</button></div>
+      <div class="brand-names"><b>Telegram <span>Archive</span></b><small data-i18n="brand.subtitle">История сообщений</small></div>
+      <button id="sidebarClose" class="icon-button mobile-only" aria-label="Скрыть панель" data-i18n-aria="sidebar.hide">✕</button>
+      <button id="optionsButton" class="icon-button desktop-only" title="Меню" aria-label="Меню" data-i18n-title="menu" data-i18n-aria="menu">⋮</button>
+      <div id="optionsMenu" class="options-menu" hidden><button id="themeButton" data-i18n="menu.theme">☼ Переключить тему</button><button id="langButton" data-i18n="lang.switch">⇄ English</button><button id="logoutButton" data-i18n="menu.logout">↪ Выйти из архива</button></div>
     </div>
     <div class="sidebar-nav">
-      <button id="navHome" class="nav-item active"><span class="nav-icon">◉</span> Обзор <span class="nav-arrow">›</span></button>
-      <button id="navSearch" class="nav-item"><span class="nav-icon">⌕</span> Поиск по архиву <span class="nav-arrow">⌘ K</span></button>
-      <button id="navContacts" class="nav-item"><span class="nav-icon">♙</span> Контакты <span class="nav-arrow">›</span></button>
-      <button id="navGallery" class="nav-item"><span class="nav-icon">▧</span> Медиатека <span class="nav-arrow">›</span></button>
-      <button id="navBookmarks" class="nav-item"><span class="nav-icon">♧</span> Закладки <span class="nav-arrow">›</span></button>
+      <button id="navHome" class="nav-item active" data-i18n="nav.home"><span class="nav-icon">◉</span> Обзор <span class="nav-arrow">›</span></button>
+      <button id="navSearch" class="nav-item" data-i18n="nav.search"><span class="nav-icon">⌕</span> Поиск по архиву <span class="nav-arrow">⌘ K</span></button>
+      <button id="navContacts" class="nav-item" data-i18n="nav.contacts"><span class="nav-icon">♙</span> Контакты <span class="nav-arrow">›</span></button>
+      <button id="navGallery" class="nav-item" data-i18n="nav.gallery"><span class="nav-icon">▧</span> Медиатека <span class="nav-arrow">›</span></button>
+      <button id="navBookmarks" class="nav-item" data-i18n="nav.bookmarks"><span class="nav-icon">♧</span> Закладки <span class="nav-arrow">›</span></button>
     </div>
     <div class="sidebar-divider"></div>
-    <div class="section-top"><span>СООБЩЕНИЯ</span><span id="sidebarCount"></span></div>
-    <label class="chat-filter-wrap"><span>⌕</span><input id="chatFilter" placeholder="Найти чат или канал…" autocomplete="off" aria-label="Поиск чата"></label>
-    <div id="categoryFilters" class="category-filters"><button class="selected" data-category="all">Все</button><button data-category="personal">Личные</button><button data-category="groups">Группы</button><button data-category="channels">Каналы</button><button data-category="saved">Избранное</button><button data-category="left">Покинутые</button></div>
+    <div class="section-top"><span data-i18n="sidebar.section">СООБЩЕНИЯ</span><span id="sidebarCount"></span></div>
+    <label class="chat-filter-wrap"><span>⌕</span><input id="chatFilter" placeholder="Найти чат или канал…" autocomplete="off" aria-label="Поиск чата" data-i18n-placeholder="sidebar.filter" data-i18n-aria="sidebar.filterLabel"></label>
+    <div id="categoryFilters" class="category-filters"><button class="selected" data-category="all" data-i18n="cat.all">Все</button><button data-category="personal" data-i18n="cat.personal">Личные</button><button data-category="groups" data-i18n="cat.groups">Группы</button><button data-category="channels" data-i18n="cat.channels">Каналы</button><button data-category="saved" data-i18n="cat.saved">Избранное</button><button data-category="left" data-i18n="cat.left">Покинутые</button></div>
     <div id="chatList" class="chat-list"></div>
-    <div class="sidebar-bottom"><div class="status-dot"></div><span>Архив · Только чтение</span><button id="mobileLogout" title="Выход" class="icon-button mobile-only">↪</button></div>
+    <div class="sidebar-bottom"><div class="status-dot"></div><span data-i18n="sidebar.status">Архив · Только чтение</span><button id="mobileLogout" title="Выход" data-i18n-title="logout" class="icon-button mobile-only">↪</button></div>
   </aside>
   <main id="mainArea" class="main-area">
-    <div class="mobile-header"><button id="sidebarOpen" class="icon-button" aria-label="Открыть список чатов">☰</button><strong>Telegram Archive</strong></div>
+    <div class="mobile-header"><button id="sidebarOpen" class="icon-button" aria-label="Открыть список чатов" data-i18n-aria="sidebar.open">☰</button><strong>Telegram Archive</strong></div>
     <section id="homeView" class="view home-view">
       <div class="home-content">
-        <div class="home-topline"><span class="top-badge">АРХИВ TELEGRAM</span><span id="lastImport" class="muted"></span></div>
-        <h1>Архив сообщений</h1>
-        <p class="home-description">Чаты, группы, каналы и файлы из экспорта Telegram.</p>
-        <div class="home-actions"><button id="homeSearch" class="primary-button">⌕ &nbsp; Искать по всему архиву <span>→</span></button><button id="homeMedia" class="secondary-button">▧ &nbsp; Открыть медиатеку</button></div>
+        <div class="home-topline"><span class="top-badge" data-i18n="home.badge">АРХИВ TELEGRAM</span><span id="lastImport" class="muted"></span></div>
+        <h1 data-i18n="home.title">Архив сообщений</h1>
+        <p class="home-description" data-i18n="home.description">Чаты, группы, каналы и файлы из экспорта Telegram.</p>
+        <div class="home-actions"><button id="homeSearch" class="primary-button" data-i18n="home.search">⌕ &nbsp; Искать по всему архиву <span>→</span></button><button id="homeMedia" class="secondary-button" data-i18n="home.media">▧ &nbsp; Открыть медиатеку</button></div>
         <div id="statCards" class="stat-cards"></div>
       </div>
     </section>
     <section id="chatView" class="view chat-view" hidden>
-      <header class="chat-header"><div class="chat-header-info"><div id="chatHeaderAvatar"></div><div><h2 id="chatHeaderTitle"></h2><p id="chatHeaderMeta"></p></div></div><div class="header-actions"><button id="chatSearch" class="icon-button" title="Поиск в чате">⌕</button><button id="chatMedia" class="icon-button" title="Медиа чата">▧</button><button id="chatCalendar" class="icon-button" title="Даты сообщений">▦</button><button id="chatLatestTop" class="icon-button" title="Последние сообщения">↓</button></div></header>
-      <div id="calendarPanel" class="calendar-panel" hidden><div class="calendar-top"><b>Перейти к дате</b><button id="calendarClose" class="icon-button">✕</button></div><label>Дата <input id="calendarDate" type="date"></label><button id="calendarGo" class="secondary-button">Найти сообщения</button><div id="calendarInfo" class="muted"></div></div>
+      <header class="chat-header"><div class="chat-header-info"><div id="chatHeaderAvatar"></div><div><h2 id="chatHeaderTitle"></h2><p id="chatHeaderMeta"></p></div></div><div class="header-actions"><button id="chatSearch" class="icon-button" title="Поиск в чате" data-i18n-title="chat.search">⌕</button><button id="chatMedia" class="icon-button" title="Медиа чата" data-i18n-title="chat.media">▧</button><button id="chatCalendar" class="icon-button" title="Даты сообщений" data-i18n-title="chat.dates">▦</button><button id="chatLatestTop" class="icon-button" title="Последние сообщения" data-i18n-title="chat.latest">↓</button></div></header>
+      <div id="calendarPanel" class="calendar-panel" hidden><div class="calendar-top"><b data-i18n="calendar.title">Перейти к дате</b><button id="calendarClose" class="icon-button">✕</button></div><label data-i18n="calendar.date">Дата <input id="calendarDate" type="date"></label><button id="calendarGo" class="secondary-button" data-i18n="calendar.go">Найти сообщения</button><div id="calendarInfo" class="muted"></div></div>
       <div id="messageScroll" class="message-scroll"><div id="messageLoad" class="message-load"></div><div id="messageStream" class="message-stream"></div><div id="messageLoadNew" class="message-load"></div></div>
-      <div class="readonly-footer"><span>🔒 &nbsp; Архивная копия · Отправка сообщений отключена</span><button id="latestButton" class="latest-button" hidden>↓ К последним</button></div>
+      <div class="readonly-footer"><span data-i18n="readonly">🔒 &nbsp; Архивная копия · Отправка сообщений отключена</span><button id="latestButton" class="latest-button" hidden data-i18n="latest">↓ К последним</button></div>
     </section>
-    <section id="searchView" class="view utility-view" hidden><div class="utility-content"><div class="page-overline">ПОИСК</div><h1>Поиск сообщений</h1><p class="page-description">Ищите по всем перепискам сразу — включая группы, каналы и имена файлов.</p>
-      <form id="searchForm" class="search-form"><div class="large-search">⌕<input id="globalQuery" type="search" placeholder="Сообщение, фраза или название файла…" autocomplete="off"><button class="primary-button" type="submit">Искать →</button></div>
-      <div class="search-filters"><label>Чат<select id="searchChat"><option value="">Все чаты</option></select></label><label>Отправитель<input id="searchSender" placeholder="Имя"></label><label>С даты<input id="searchAfter" type="date"></label><label>По дату<input id="searchBefore" type="date"></label><label>Содержит<select id="searchHas"><option value="">Всё</option><option value="photo">Фото</option><option value="video">Видео</option><option value="voice">Голосовые</option><option value="audio">Аудио</option><option value="file">Файл</option><option value="link">Ссылку</option></select></label></div></form>
-      <div class="results-header"><h3 id="searchTitle">Введите запрос</h3><span id="searchHint" class="muted"></span></div><div id="searchResults" class="result-list"></div><button id="moreResults" class="more-button" hidden>Загрузить ещё ↓</button></div></section>
+    <section id="searchView" class="view utility-view" hidden><div class="utility-content"><div class="page-overline" data-i18n="search.overline">ПОИСК</div><h1 data-i18n="search.title">Поиск сообщений</h1><p class="page-description" data-i18n="search.description">Ищите по всем перепискам сразу — включая группы, каналы и имена файлов.</p>
+      <form id="searchForm" class="search-form"><div class="large-search">⌕<input id="globalQuery" type="search" placeholder="Сообщение, фраза или название файла…" data-i18n-placeholder="search.placeholder" autocomplete="off"><button class="primary-button" type="submit" data-i18n="search.submit">Искать →</button></div>
+      <div class="search-filters"><label data-i18n="search.chat">Чат<select id="searchChat"><option value="" data-i18n="search.allChats">Все чаты</option></select></label><label data-i18n="search.sender">Отправитель<input id="searchSender" placeholder="Имя" data-i18n-placeholder="search.senderPlaceholder"></label><label data-i18n="search.after">С даты<input id="searchAfter" type="date"></label><label data-i18n="search.before">По дату<input id="searchBefore" type="date"></label><label data-i18n="search.has">Содержит<select id="searchHas"><option value="" data-i18n="has.any">Всё</option><option value="photo" data-i18n="has.photo">Фото</option><option value="video" data-i18n="has.video">Видео</option><option value="voice" data-i18n="has.voice">Голосовые</option><option value="audio" data-i18n="has.audio">Аудио</option><option value="file" data-i18n="has.file">Файл</option><option value="link" data-i18n="has.link">Ссылку</option></select></label></div></form>
+      <div class="results-header"><h3 id="searchTitle">Введите запрос</h3><span id="searchHint" class="muted"></span></div><div id="searchResults" class="result-list"></div><button id="moreResults" class="more-button" hidden data-i18n="search.more">Загрузить ещё ↓</button></div></section>
     <section id="contactsView" class="view utility-view" hidden><div class="utility-content">
-      <h1>Контакты из экспорта</h1>
-      <p class="page-description">Список контактов на дату экспорта. Для переписок с людьми, которых больше нет в списке, откройте «Личные» и ищите по названию чата. Удалённую до экспорта историю восстановить нельзя.</p>
-      <button id="contactsPersonal" class="secondary-button">Показать все личные чаты</button>
-      <label class="chat-filter-wrap contacts-filter"><span>⌕</span><input id="contactsQuery" type="search" placeholder="Имя или номер телефона" autocomplete="off" aria-label="Поиск контакта"></label>
-      <p id="contactsCount" class="muted"></p><div id="contactsList" class="result-list"></div><button id="moreContacts" class="more-button" hidden>Ещё контакты ↓</button>
+      <h1 data-i18n="contacts.title">Контакты из экспорта</h1>
+      <p class="page-description" data-i18n="contacts.description">Список контактов на дату экспорта. Для переписок с людьми, которых больше нет в списке, откройте «Личные» и ищите по названию чата. Удалённую до экспорта историю восстановить нельзя.</p>
+      <button id="contactsPersonal" class="secondary-button" data-i18n="contacts.personal">Показать все личные чаты</button>
+      <label class="chat-filter-wrap contacts-filter"><span>⌕</span><input id="contactsQuery" type="search" placeholder="Имя или номер телефона" autocomplete="off" aria-label="Поиск контакта" data-i18n-placeholder="contacts.placeholder" data-i18n-aria="contacts.label"></label>
+      <p id="contactsCount" class="muted"></p><div id="contactsList" class="result-list"></div><button id="moreContacts" class="more-button" hidden data-i18n="contacts.more">Ещё контакты ↓</button>
     </div></section>
-    <section id="galleryView" class="view utility-view" hidden><div class="utility-content"><div class="page-overline">ФАЙЛЫ</div><h1>Медиатека</h1><p id="galleryDescription" class="page-description">Фото, видео, аудио и документы из всех чатов.</p><div class="gallery-controls"><select id="galleryChat"><option value="">Все чаты</option></select><div id="galleryFilters" class="gallery-tabs"><button data-kind="all" class="selected">Всё</button><button data-kind="photo">Фото</button><button data-kind="video">Видео</button><button data-kind="voice">Голосовые</button><button data-kind="audio">Аудио</button><button data-kind="file">Файлы</button><button data-kind="sticker">Стикеры</button></div></div><div id="galleryGrid" class="gallery-grid"></div><button id="moreGallery" class="more-button" hidden>Показать ещё ↓</button></div></section>
-    <section id="bookmarksView" class="view utility-view" hidden><div class="utility-content"><div class="page-overline">СОХРАНЁННОЕ</div><h1>Закладки</h1><p class="page-description">Здесь сохраняются отмеченные сообщения со ссылкой на исходный чат.</p><div id="bookmarksList" class="result-list"></div></div></section>
+    <section id="galleryView" class="view utility-view" hidden><div class="utility-content"><div class="page-overline" data-i18n="gallery.overline">ФАЙЛЫ</div><h1 data-i18n="gallery.title">Медиатека</h1><p id="galleryDescription" class="page-description">Фото, видео, аудио и документы из всех чатов.</p><div class="gallery-controls"><select id="galleryChat"><option value="" data-i18n="search.allChats">Все чаты</option></select><div id="galleryFilters" class="gallery-tabs"><button data-kind="all" class="selected" data-i18n="gallery.all">Всё</button><button data-kind="photo" data-i18n="gallery.photo">Фото</button><button data-kind="video" data-i18n="gallery.video">Видео</button><button data-kind="voice" data-i18n="gallery.voice">Голосовые</button><button data-kind="audio" data-i18n="gallery.audio">Аудио</button><button data-kind="file" data-i18n="gallery.file">Файлы</button><button data-kind="sticker" data-i18n="gallery.sticker">Стикеры</button></div></div><div id="galleryGrid" class="gallery-grid"></div><button id="moreGallery" class="more-button" hidden data-i18n="gallery.more">Показать ещё ↓</button></div></section>
+    <section id="bookmarksView" class="view utility-view" hidden><div class="utility-content"><div class="page-overline" data-i18n="bookmarks.overline">СОХРАНЁННОЕ</div><h1 data-i18n="bookmarks.title">Закладки</h1><p class="page-description" data-i18n="bookmarks.description">Здесь сохраняются отмеченные сообщения со ссылкой на исходный чат.</p><div id="bookmarksList" class="result-list"></div></div></section>
   </main>
 </div>
-<div id="overlay" class="overlay" hidden><div class="viewer"><div class="viewer-head"><span id="viewerTitle"></span><div><a id="viewerDownload" class="viewer-btn" download>↓ Скачать</a><button id="viewerRaw" class="viewer-btn" hidden>JSON</button><button id="viewerClose" class="viewer-close" aria-label="Закрыть">✕</button></div></div><div id="viewerBody" class="viewer-body"></div><div class="viewer-foot"><button id="viewerPrev" class="viewer-btn">←</button><span id="viewerCount"></span><button id="viewerNext" class="viewer-btn">→</button><button id="viewerMessage" class="viewer-btn">К сообщению ↗</button></div></div></div>
+<div id="overlay" class="overlay" hidden><div class="viewer"><div class="viewer-head"><span id="viewerTitle"></span><div><a id="viewerDownload" class="viewer-btn" download data-i18n="viewer.download">↓ Скачать</a><button id="viewerRaw" class="viewer-btn" hidden>JSON</button><button id="viewerClose" class="viewer-close" aria-label="Закрыть" data-i18n-aria="viewer.close">✕</button></div></div><div id="viewerBody" class="viewer-body"></div><div class="viewer-foot"><button id="viewerPrev" class="viewer-btn">←</button><span id="viewerCount"></span><button id="viewerNext" class="viewer-btn">→</button><button id="viewerMessage" class="viewer-btn" data-i18n="viewer.message">К сообщению ↗</button></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 </body></html>

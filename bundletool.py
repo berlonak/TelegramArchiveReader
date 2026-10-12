@@ -340,7 +340,7 @@ def prepare(args: argparse.Namespace) -> None:
             "import_audit": {k: result[k] for k in ("chats", "left_chats", "messages",
                                                   "media_references", "media_present", "media_missing")},
             "source_formats": ["JSON", "HTML"] if combined else ["JSON"],
-            "app_version": "0.3.4", "contacts_indexed_count": contacts_count,
+            "app_version": "0.4.0", "contacts_indexed_count": contacts_count,
             "original_export_is_unchanged": True,
         }
         temporary = manifest_path.with_suffix(".json.tmp")

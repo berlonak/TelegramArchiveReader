@@ -1,0 +1,869 @@
+{
+  "about": "Synthetic sample archive; no real private data.",
+  "personal_information": {
+    "user_id": 101,
+    "first_name": "Sam"
+  },
+  "chats": {
+    "list": [
+      {
+        "name": "Maria",
+        "type": "personal_chat",
+        "id": 222,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-10T10:12:00+00:00",
+            "date_unixtime": "1618049520",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Hi! Remember our trip?"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-10T10:24:00+00:00",
+            "date_unixtime": "1618050240",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Sure! I found those photos 📷"
+          },
+          {
+            "id": 3,
+            "type": "message",
+            "date": "2021-04-10T10:36:00+00:00",
+            "date_unixtime": "1618050960",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "",
+            "photo": "chats/chat1/photos/photo_1.jpg",
+            "width": 800,
+            "height": 450
+          },
+          {
+            "id": 4,
+            "type": "message",
+            "date": "2021-04-10T10:48:00+00:00",
+            "date_unixtime": "1618051680",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": [
+              {
+                "type": "plain",
+                "text": "Here is a link to the "
+              },
+              {
+                "type": "text_link",
+                "text": "route",
+                "href": "https://example.org/trip"
+              }
+            ],
+            "reply_to_message_id": 2
+          },
+          {
+            "id": 5,
+            "type": "message",
+            "date": "2021-05-16T11:00:00+00:00",
+            "date_unixtime": "1621162800",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "We'll definitely repeat the trip next summer."
+          },
+          {
+            "id": 6,
+            "type": "message",
+            "date": "2022-02-04T11:12:00+00:00",
+            "date_unixtime": "1643973120",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "I still have your old document saved somewhere."
+          },
+          {
+            "id": 7,
+            "type": "message",
+            "date": "2022-02-04T11:24:00+00:00",
+            "date_unixtime": "1643973840",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Found it in my saved messages, thanks!"
+          },
+          {
+            "id": 8,
+            "type": "message",
+            "date": "2022-02-06T11:36:00+00:00",
+            "date_unixtime": "1644147360",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 9,
+            "type": "message",
+            "date": "2022-02-06T11:48:00+00:00",
+            "date_unixtime": "1644148080",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 10,
+            "type": "message",
+            "date": "2022-02-06T12:00:00+00:00",
+            "date_unixtime": "1644148800",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 11,
+            "type": "message",
+            "date": "2022-02-06T12:12:00+00:00",
+            "date_unixtime": "1644149520",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 12,
+            "type": "message",
+            "date": "2022-02-07T12:24:00+00:00",
+            "date_unixtime": "1644236640",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 13,
+            "type": "message",
+            "date": "2022-02-07T12:36:00+00:00",
+            "date_unixtime": "1644237360",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 14,
+            "type": "message",
+            "date": "2022-02-07T12:48:00+00:00",
+            "date_unixtime": "1644238080",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 15,
+            "type": "message",
+            "date": "2022-02-07T13:00:00+00:00",
+            "date_unixtime": "1644238800",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 16,
+            "type": "message",
+            "date": "2022-02-08T13:12:00+00:00",
+            "date_unixtime": "1644325920",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 17,
+            "type": "message",
+            "date": "2022-02-08T13:24:00+00:00",
+            "date_unixtime": "1644326640",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 18,
+            "type": "message",
+            "date": "2022-02-08T13:36:00+00:00",
+            "date_unixtime": "1644327360",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 19,
+            "type": "message",
+            "date": "2022-02-08T13:48:00+00:00",
+            "date_unixtime": "1644328080",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 20,
+            "type": "message",
+            "date": "2022-02-09T14:00:00+00:00",
+            "date_unixtime": "1644415200",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 21,
+            "type": "message",
+            "date": "2022-02-09T14:12:00+00:00",
+            "date_unixtime": "1644415920",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 22,
+            "type": "message",
+            "date": "2022-02-09T14:24:00+00:00",
+            "date_unixtime": "1644416640",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 23,
+            "type": "message",
+            "date": "2022-02-09T14:36:00+00:00",
+            "date_unixtime": "1644417360",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 24,
+            "type": "message",
+            "date": "2022-02-10T14:48:00+00:00",
+            "date_unixtime": "1644504480",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 25,
+            "type": "message",
+            "date": "2022-02-10T15:00:00+00:00",
+            "date_unixtime": "1644505200",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 26,
+            "type": "message",
+            "date": "2022-02-10T15:12:00+00:00",
+            "date_unixtime": "1644505920",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 27,
+            "type": "message",
+            "date": "2022-02-10T15:24:00+00:00",
+            "date_unixtime": "1644506640",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 28,
+            "type": "message",
+            "date": "2022-02-11T15:36:00+00:00",
+            "date_unixtime": "1644593760",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 29,
+            "type": "message",
+            "date": "2022-02-11T15:48:00+00:00",
+            "date_unixtime": "1644594480",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 30,
+            "type": "message",
+            "date": "2022-02-11T16:00:00+00:00",
+            "date_unixtime": "1644595200",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 31,
+            "type": "message",
+            "date": "2022-02-11T16:12:00+00:00",
+            "date_unixtime": "1644595920",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 32,
+            "type": "message",
+            "date": "2022-02-12T16:24:00+00:00",
+            "date_unixtime": "1644683040",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 33,
+            "type": "message",
+            "date": "2022-02-12T16:36:00+00:00",
+            "date_unixtime": "1644683760",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 34,
+            "type": "message",
+            "date": "2022-02-12T16:48:00+00:00",
+            "date_unixtime": "1644684480",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 35,
+            "type": "message",
+            "date": "2022-02-12T17:00:00+00:00",
+            "date_unixtime": "1644685200",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 36,
+            "type": "message",
+            "date": "2022-02-13T17:12:00+00:00",
+            "date_unixtime": "1644772320",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 37,
+            "type": "message",
+            "date": "2022-02-13T17:24:00+00:00",
+            "date_unixtime": "1644773040",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 38,
+            "type": "message",
+            "date": "2022-02-13T17:36:00+00:00",
+            "date_unixtime": "1644773760",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 39,
+            "type": "message",
+            "date": "2022-02-13T17:48:00+00:00",
+            "date_unixtime": "1644774480",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 40,
+            "type": "message",
+            "date": "2022-02-14T18:00:00+00:00",
+            "date_unixtime": "1644861600",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 41,
+            "type": "message",
+            "date": "2022-02-14T18:12:00+00:00",
+            "date_unixtime": "1644862320",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 42,
+            "type": "message",
+            "date": "2022-02-14T18:24:00+00:00",
+            "date_unixtime": "1644863040",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 43,
+            "type": "message",
+            "date": "2022-02-14T18:36:00+00:00",
+            "date_unixtime": "1644863760",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 44,
+            "type": "message",
+            "date": "2022-02-15T18:48:00+00:00",
+            "date_unixtime": "1644950880",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 45,
+            "type": "message",
+            "date": "2022-02-15T19:00:00+00:00",
+            "date_unixtime": "1644951600",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 46,
+            "type": "message",
+            "date": "2022-02-15T19:12:00+00:00",
+            "date_unixtime": "1644952320",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 47,
+            "type": "message",
+            "date": "2022-02-15T19:24:00+00:00",
+            "date_unixtime": "1644953040",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 48,
+            "type": "message",
+            "date": "2022-02-16T19:36:00+00:00",
+            "date_unixtime": "1645040160",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 49,
+            "type": "message",
+            "date": "2022-02-16T19:48:00+00:00",
+            "date_unixtime": "1645040880",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 50,
+            "type": "message",
+            "date": "2022-02-16T20:00:00+00:00",
+            "date_unixtime": "1645041600",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 51,
+            "type": "message",
+            "date": "2022-02-16T20:12:00+00:00",
+            "date_unixtime": "1645042320",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 52,
+            "type": "message",
+            "date": "2022-02-17T20:24:00+00:00",
+            "date_unixtime": "1645129440",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 53,
+            "type": "message",
+            "date": "2022-02-17T20:36:00+00:00",
+            "date_unixtime": "1645130160",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 54,
+            "type": "message",
+            "date": "2022-02-17T20:48:00+00:00",
+            "date_unixtime": "1645130880",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 55,
+            "type": "message",
+            "date": "2022-02-17T21:00:00+00:00",
+            "date_unixtime": "1645131600",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 56,
+            "type": "message",
+            "date": "2022-02-18T21:12:00+00:00",
+            "date_unixtime": "1645218720",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 57,
+            "type": "message",
+            "date": "2022-02-18T21:24:00+00:00",
+            "date_unixtime": "1645219440",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 58,
+            "type": "message",
+            "date": "2022-02-18T21:36:00+00:00",
+            "date_unixtime": "1645220160",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 59,
+            "type": "message",
+            "date": "2022-02-18T21:48:00+00:00",
+            "date_unixtime": "1645220880",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 60,
+            "type": "message",
+            "date": "2022-02-19T22:00:00+00:00",
+            "date_unixtime": "1645308000",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 61,
+            "type": "message",
+            "date": "2022-02-19T22:12:00+00:00",
+            "date_unixtime": "1645308720",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 62,
+            "type": "message",
+            "date": "2022-02-19T22:24:00+00:00",
+            "date_unixtime": "1645309440",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 63,
+            "type": "message",
+            "date": "2022-02-19T22:36:00+00:00",
+            "date_unixtime": "1645310160",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 64,
+            "type": "message",
+            "date": "2022-02-20T22:48:00+00:00",
+            "date_unixtime": "1645397280",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 65,
+            "type": "message",
+            "date": "2022-02-20T23:00:00+00:00",
+            "date_unixtime": "1645398000",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 66,
+            "type": "message",
+            "date": "2022-02-20T23:12:00+00:00",
+            "date_unixtime": "1645398720",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 67,
+            "type": "message",
+            "date": "2022-02-20T23:24:00+00:00",
+            "date_unixtime": "1645399440",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 68,
+            "type": "message",
+            "date": "2022-02-21T23:36:00+00:00",
+            "date_unixtime": "1645486560",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 69,
+            "type": "message",
+            "date": "2022-02-21T23:48:00+00:00",
+            "date_unixtime": "1645487280",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 70,
+            "type": "message",
+            "date": "2022-02-22T00:00:00+00:00",
+            "date_unixtime": "1645488000",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 71,
+            "type": "message",
+            "date": "2022-02-22T00:12:00+00:00",
+            "date_unixtime": "1645488720",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 72,
+            "type": "message",
+            "date": "2022-02-23T00:24:00+00:00",
+            "date_unixtime": "1645575840",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 73,
+            "type": "message",
+            "date": "2022-02-23T00:36:00+00:00",
+            "date_unixtime": "1645576560",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          },
+          {
+            "id": 74,
+            "type": "message",
+            "date": "2022-02-23T00:48:00+00:00",
+            "date_unixtime": "1645577280",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "I found our old conversation"
+          },
+          {
+            "id": 75,
+            "type": "message",
+            "date": "2022-02-23T01:00:00+00:00",
+            "date_unixtime": "1645578000",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Look at last year's photos"
+          },
+          {
+            "id": 76,
+            "type": "message",
+            "date": "2022-02-24T01:12:00+00:00",
+            "date_unixtime": "1645665120",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Let's call tomorrow"
+          },
+          {
+            "id": 77,
+            "type": "message",
+            "date": "2022-02-24T01:24:00+00:00",
+            "date_unixtime": "1645665840",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "This is my personal Telegram archive"
+          },
+          {
+            "id": 78,
+            "type": "message",
+            "date": "2022-02-24T01:36:00+00:00",
+            "date_unixtime": "1645666560",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "How are you?"
+          },
+          {
+            "id": 79,
+            "type": "message",
+            "date": "2022-02-24T01:48:00+00:00",
+            "date_unixtime": "1645667280",
+            "from": "Maria",
+            "from_id": "user222",
+            "text": "Remember this meetup?"
+          }
+        ]
+      },
+      {
+        "name": "Weekend plans",
+        "type": "private_supergroup",
+        "id": 333,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-30T10:12:00+00:00",
+            "date_unixtime": "1619777520",
+            "from": "Emma",
+            "from_id": "user222",
+            "text": "Hi everyone, any plans for the weekend?"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-30T10:24:00+00:00",
+            "date_unixtime": "1619778240",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "We could go to the lake!"
+          },
+          {
+            "id": 3,
+            "type": "message",
+            "date": "2021-04-30T10:36:00+00:00",
+            "date_unixtime": "1619778960",
+            "from": "Daniel",
+            "from_id": "user222",
+            "text": "Sounds great"
+          },
+          {
+            "id": 4,
+            "type": "message",
+            "date": "2021-05-01T10:48:00+00:00",
+            "date_unixtime": "1619866080",
+            "from": "Emma",
+            "from_id": "user222",
+            "text": "",
+            "photo": "chats/chat2/photos/photo_2.jpg",
+            "width": 800,
+            "height": 450
+          },
+          {
+            "id": 5,
+            "type": "message",
+            "date": "2021-05-02T11:00:00+00:00",
+            "date_unixtime": "1619953200",
+            "from": "Daniel",
+            "from_id": "user222",
+            "text": "I made a shopping list for the weekend."
+          }
+        ]
+      },
+      {
+        "name": "Tech Today",
+        "type": "public_channel",
+        "id": 444,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-13T10:12:00+00:00",
+            "date_unixtime": "1618308720",
+            "from": "Tech Today",
+            "from_id": "user222",
+            "text": "Tech digest: New apps and projects"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-16T10:24:00+00:00",
+            "date_unixtime": "1618568640",
+            "from": "Tech Today",
+            "from_id": "user222",
+            "text": "Tech digest: Important updates"
+          },
+          {
+            "id": 3,
+            "type": "message",
+            "date": "2021-04-19T10:36:00+00:00",
+            "date_unixtime": "1618828560",
+            "from": "Tech Today",
+            "from_id": "user222",
+            "text": "Tech digest: Digital world news"
+          },
+          {
+            "id": 4,
+            "type": "message",
+            "date": "2021-04-22T10:48:00+00:00",
+            "date_unixtime": "1619088480",
+            "from": "Tech Today",
+            "from_id": "user222",
+            "text": "Tech digest: Data storage tips"
+          }
+        ]
+      },
+      {
+        "name": "Saved Messages",
+        "type": "saved_messages",
+        "id": 101,
+        "messages": [
+          {
+            "id": 1,
+            "type": "message",
+            "date": "2021-04-10T10:12:00+00:00",
+            "date_unixtime": "1618049520",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "https://example.org/bookmark"
+          },
+          {
+            "id": 2,
+            "type": "message",
+            "date": "2021-04-13T10:24:00+00:00",
+            "date_unixtime": "1618309440",
+            "from": "Sam",
+            "from_id": "user101",
+            "text": "Useful document about the project history"
+          }
+        ]
+      }
+    ]
+  },
+  "left_chats": {
+    "list": []
+  }
+}

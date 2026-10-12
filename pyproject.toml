@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "telegram-personal-archive"
-version = "0.3.4"
+version = "0.4.0"
 description = "Private, read-only Telegram Desktop JSON export viewer"
 readme = "README.md"
 license = "Apache-2.0"
@@ -17,6 +17,7 @@ classifiers = [
   "Environment :: Web Environment",
   "Framework :: FastAPI",
   "Intended Audience :: End Users/Desktop",
+  "Natural Language :: English",
   "Natural Language :: Russian",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",

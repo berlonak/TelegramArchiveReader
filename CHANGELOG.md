@@ -3,6 +3,21 @@
 Versions before 0.3.4 were not published. Their entries are reconstructed from code comments,
 documentation and regression tests.
 
+## [0.4.0] - 2026-10-12
+
+### Added
+- English web interface alongside Russian. Switch it in the menu or on the sign-in page; the
+  default follows the browser language and the choice is stored locally. Dates and numbers
+  are formatted for the selected language, message counts use proper plural forms, and known
+  server error messages are translated.
+- `examples/demo-export-en`: the synthetic demo export with English texts.
+- A test that every UI string key exists in both dictionaries.
+
+### Fixed
+- A wrong password on the sign-in page was reported as "session ended" instead of
+  "wrong password".
+- Chat headers said "1 сообщений": message counts now use correct plural forms.
+
 ## [0.3.4] - 2026-10-12
 
 First public release.
